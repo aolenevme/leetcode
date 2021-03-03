@@ -30,8 +30,11 @@ package main
 
 import "fmt"
 
+const ALPHABET_SIZE = 26
+
 type node struct {
-	alphabet [26]*node
+	alphabet [ALPHABET_SIZE]*node
+	end bool
 }
 
 type Trie struct {
@@ -54,14 +57,37 @@ func (T *Trie) insert(word string) {
 			}
 
 			nextNode = nextNode.alphabet[index]
+			nextNode.end = false
+		}
+	}
+
+	nextNode.end = true
+}
+
+func (T *Trie) dfs() {
+	ans := ""
+	node := T.Root
+
+	for !node.end {
+		for i:=0; i<ALPHABET_SIZE; i++ {
+			if node.alphabet[i] != nil {
+				ans += string(i + 'a')
+				node = node.alphabet[i]
+			}
+
+			fmt.Println(ans)
+
+			nextTrie := new(Trie)
+			nextTrie.Root = node
+			nextTrie.dfs()
 		}
 	}
 }
 
 func main() {
 	trie := new(Trie)
-	trie.insert("apple")
+	trie.insert("aa")
 	trie.insert("banana")
 
-	fmt.Printf("%v", trie.Root.alphabet)
+	trie.dfs()
 }
