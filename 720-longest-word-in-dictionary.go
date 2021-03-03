@@ -37,21 +37,17 @@ type Node struct {
 	end bool
 }
 
-func (node *Node) dfs() {
-	ans := ""
-
-	for !node.end {
+func (node *Node) dfs(ans *string) {
+	//for !node.end {
 		for i:=0; i<ALPHABET_SIZE; i++ {
 			if node.alphabet[i] != nil {
-				ans += string(i + 'a')
+				*ans += string(i + 'a')
 				node = node.alphabet[i]
 			}
 
-			fmt.Println(ans)
-
-			node.dfs()
+			//node.dfs(ans)
 		}
-	}
+	//}
 }
 
 type Trie struct {
@@ -83,9 +79,14 @@ func (T *Trie) insert(word string) {
 
 func main() {
 	trie := new(Trie)
-	trie.insert("aa")
-	trie.insert("banana")
+	trie.insert("aaabcda")
+	trie.insert("none")
 
 	rootNode := trie.Root
-	rootNode.dfs()
+
+	//fmt.Printf("%v", rootNode.alphabet[0].alphabet[0])
+
+	ans := ""
+	rootNode.dfs(&ans)
+	fmt.Println(ans)
 }
