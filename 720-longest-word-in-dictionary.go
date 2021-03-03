@@ -32,41 +32,13 @@ import "fmt"
 
 const ALPHABET_SIZE = 26
 
-type node struct {
-	alphabet [ALPHABET_SIZE]*node
+type Node struct {
+	alphabet [ALPHABET_SIZE]*Node
 	end bool
 }
 
-type Trie struct {
-	Root *node
-}
-
-func (T *Trie) insert(word string) {
-	if T.Root == nil {
-		T.Root = new(node)
-	}
-
-	nextNode := T.Root
-
-	for cursor := 0; cursor < len(word); cursor++ {
-		index := int(word[cursor] - 'a')
-
-		if index < 26 {
-			if nextNode.alphabet[index] == nil {
-				nextNode.alphabet[index] = new(node)
-			}
-
-			nextNode = nextNode.alphabet[index]
-			nextNode.end = false
-		}
-	}
-
-	nextNode.end = true
-}
-
-func (T *Trie) dfs() {
+func (node *Node) dfs() {
 	ans := ""
-	node := T.Root
 
 	for !node.end {
 		for i:=0; i<ALPHABET_SIZE; i++ {
@@ -77,11 +49,36 @@ func (T *Trie) dfs() {
 
 			fmt.Println(ans)
 
-			nextTrie := new(Trie)
-			nextTrie.Root = node
-			nextTrie.dfs()
+			node.dfs()
 		}
 	}
+}
+
+type Trie struct {
+	Root *Node
+}
+
+func (T *Trie) insert(word string) {
+	if T.Root == nil {
+		T.Root = new(Node)
+	}
+
+	nextNode := T.Root
+
+	for cursor := 0; cursor < len(word); cursor++ {
+		index := int(word[cursor] - 'a')
+
+		if index < 26 {
+			if nextNode.alphabet[index] == nil {
+				nextNode.alphabet[index] = new(Node)
+			}
+
+			nextNode = nextNode.alphabet[index]
+			nextNode.end = false
+		}
+	}
+
+	nextNode.end = true
 }
 
 func main() {
@@ -89,5 +86,6 @@ func main() {
 	trie.insert("aa")
 	trie.insert("banana")
 
-	trie.dfs()
+	rootNode := trie.Root
+	rootNode.dfs()
 }
