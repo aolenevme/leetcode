@@ -34,20 +34,23 @@ const ALPHABET_SIZE = 26
 
 type Node struct {
 	alphabet [ALPHABET_SIZE]*Node
+	visited bool
 	end bool
 }
 
-func (node *Node) dfs(ans *string) {
-	//for !node.end {
-		for i:=0; i<ALPHABET_SIZE; i++ {
-			if node.alphabet[i] != nil {
-				*ans += string(i + 'a')
-				node = node.alphabet[i]
-			}
+func (node *Node) dfs() {
+	stack := []*Node{node}
 
-			//node.dfs(ans)
+	for len(stack) != 0 {
+		curNode := stack[0]
+		stack = stack[1:]
+
+		if curNode.end == true || curNode == node {
+			if curNode != node {
+
+			}
 		}
-	//}
+	}
 }
 
 type Trie struct {
@@ -83,10 +86,5 @@ func main() {
 	trie.insert("none")
 
 	rootNode := trie.Root
-
-	//fmt.Printf("%v", rootNode.alphabet[0].alphabet[0])
-
-	ans := ""
-	rootNode.dfs(&ans)
-	fmt.Println(ans)
+	rootNode.dfs()
 }
