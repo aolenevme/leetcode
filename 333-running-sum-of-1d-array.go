@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	example := []int{1, 2, 3, 4}
+	example := []int{3, 1, 2, 10, 1}
 
 	res := runningSum(example)
 
@@ -11,16 +11,12 @@ func main() {
 }
 
 func runningSum(nums []int) []int {
-	newNums := make([]int, cap(nums))
+	var newNums []int
+	var sum int
 
-	for i := 0; i < cap(nums); i++ {
-		newNum := 0
-
-		for j := 0; j <= i; j++ {
-			newNum += nums[j]
-		}
-
-		newNums[i] = newNum
+	for i := 0; i < len(nums); i++ {
+		sum += nums[i]
+		newNums = append(newNums, sum)
 	}
 
 	return newNums
