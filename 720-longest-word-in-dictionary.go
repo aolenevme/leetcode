@@ -6,18 +6,18 @@
 
 	Example 1:
 
-	Input: 
+	Input:
 	words = ["w","wo","wor","worl", "world"]
 	Output: "world"
-	Explanation: 
+	Explanation:
 	The word "world" can be built one character at a time by "w", "wo", "wor", and "worl".
 
 	Example 2:
 
-	Input: 
+	Input:
 	words = ["a", "banana", "app", "appl", "ap", "apply", "apple"]
 	Output: "apple"
-	Explanation: 
+	Explanation:
 	Both "apply" and "apple" can be built from other words in the dictionary. However, "apple" is lexicographically smaller than "apply".
 
 	Note:
@@ -34,8 +34,8 @@ const ALPHABET_SIZE = 26
 
 type Node struct {
 	alphabet [ALPHABET_SIZE]*Node
-	visited bool
-	end bool
+	visited  bool
+	end      bool
 }
 
 func (node *Node) dfs() {
