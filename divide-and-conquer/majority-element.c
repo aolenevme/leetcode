@@ -23,7 +23,35 @@ Follow-up: Could you solve the problem in linear time and in O(1) space?
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+
+int majorityElement(int* nums, int numsSize){
+	int res = nums[0],
+	    counter = 0;
+	for (int i = 0; i < numsSize; i++) {
+		if (counter == 0) {
+			res = nums[i];
+		}
+
+		if (nums[i] == res) {
+			counter++;
+		} else {
+			counter--;
+		}
+	}
+	
+	return res;
+}
 
 int main() {
-	printf("Hey");
+	int *nums = (int *) malloc(7 * sizeof(int));
+	nums[0] = 2;
+	nums[1] = 2;
+	nums[2] = 1;
+	nums[3] = 1;
+	nums[4] = 1;
+	nums[5] = 2;
+	nums[6] = 2;
+
+	printf("%d", majorityElement(nums, 7));
 }
