@@ -47,7 +47,6 @@ func (node *Node) dfs() {
 
 		if curNode.end == true || curNode == node {
 			if curNode != node {
-
 			}
 		}
 	}
