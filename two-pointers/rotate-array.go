@@ -52,7 +52,7 @@ func rotate(nums []int, k int) {
 	rotations := k % len(nums)
 
 	reverse(nums, 0, len(nums)-1)
-	reverse(nums, 0, rotations - 1)
+	reverse(nums, 0, rotations-1)
 	reverse(nums, rotations, len(nums)-1)
 
 	fmt.Println(nums)
