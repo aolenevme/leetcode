@@ -33,39 +33,70 @@ import (
 )
 
 func main() {
-	fmt.Println(floodFill([][]int{{0, 0, 0}, {0, 1, 1}}, 1, 1, 1))
-	fmt.Println(floodFill([][]int{{0, 0, 0}, {0, 0, 0}}, 0, 0, 2))
-	fmt.Println(floodFill([][]int{{0}, {0}}, 0, 0, 2))
-	fmt.Println(floodFill([][]int{{0}}, 0, 0, 2))
-	fmt.Println(floodFill([][]int{{1, 1, 1}, {1, 1, 0}, {1, 0, 1}}, 1, 1, 2))
+	// fmt.Println(maxAreaOfIsland([][]int{{0, 0, 0, 0, 0, 0, 0, 0}}))
+	fmt.Println(maxAreaOfIsland([][]int{
+		{0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+		{0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0},
+		{0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+	}))
 }
 
-func floodFill(image [][]int, sr, sc, newColor int) [][]int {
-	oldColor := image[sr][sc]
+func maxAreaOfIsland(grid [][]int) int {
+	result := 0
 
-	dfs(image, sr, sc, oldColor, newColor)
+	visited := make([][]bool, len(grid))
+	for i := range visited {
+		visited[i] = make([]bool, len(grid[0]))
+	}
 
-	return image
-}
+	for r := 0; r < len(grid); r++ {
+		for c := 0; c < len(grid); c++ {
+			nextResult := dfs(grid, visited, r, c)
 
-func dfs(image [][]int, sr, sc, oldColor, newColor int) {
-	if oldColor == image[sr][sc] && newColor != oldColor {
-		image[sr][sc] = newColor
-
-		if sr-1 >= 0 {
-			dfs(image, sr-1, sc, oldColor, newColor)
-		}
-
-		if sc-1 >= 0 {
-			dfs(image, sr, sc-1, oldColor, newColor)
-		}
-
-		if sr+1 < len(image) {
-			dfs(image, sr+1, sc, oldColor, newColor)
-		}
-
-		if sc+1 < len(image[0]) {
-			dfs(image, sr, sc+1, oldColor, newColor)
+			if nextResult > result {
+				result = nextResult
+			}
 		}
 	}
+
+	return result
+}
+
+func dfs(grid [][]int, visited [][]bool, r, c int) int {
+	newMaxArea := 0
+
+	fmt.Println(r, c)
+	if visited[r][c] {
+		return newMaxArea
+	}
+
+	if grid[r][c] != 1 {
+		return newMaxArea 
+	}
+
+	newMaxArea++
+	visited[r][c] = true
+
+	if r-1 >= 0 && !visited[r][c] {
+		newMaxArea = newMaxArea + dfs(grid, visited, r-1, c)
+	}
+
+	if c-1 >= 0 {
+		newMaxArea = newMaxArea + dfs(grid, visited, r, c-1)
+	}
+
+	if r+1 < len(grid) {
+		newMaxArea = newMaxArea + dfs(grid, visited, r+1, c)
+	}
+
+	if c+1 < len(grid[0]) {
+		newMaxArea = newMaxArea + dfs(grid, visited, r, c+1)
+	}
+
+	return newMaxArea
 }
