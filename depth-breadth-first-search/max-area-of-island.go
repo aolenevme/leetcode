@@ -33,16 +33,17 @@ import (
 )
 
 func main() {
-	// fmt.Println(maxAreaOfIsland([][]int{{0, 0, 0, 0, 0, 0, 0, 0}}))
+	fmt.Println(maxAreaOfIsland([][]int{{0, 1, 1}, {1, 1, 0}, {1, 0, 0}}))
+	fmt.Println(maxAreaOfIsland([][]int{{0, 0, 0, 0, 0, 0, 0, 0}}))
 	fmt.Println(maxAreaOfIsland([][]int{
-		{0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-		{0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0},
-		{0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}))
 }
 
@@ -55,7 +56,7 @@ func maxAreaOfIsland(grid [][]int) int {
 	}
 
 	for r := 0; r < len(grid); r++ {
-		for c := 0; c < len(grid); c++ {
+		for c := 0; c < len(grid[0]); c++ {
 			nextResult := dfs(grid, visited, r, c)
 
 			if nextResult > result {
@@ -70,32 +71,25 @@ func maxAreaOfIsland(grid [][]int) int {
 func dfs(grid [][]int, visited [][]bool, r, c int) int {
 	newMaxArea := 0
 
-	fmt.Println(r, c)
-	if visited[r][c] {
-		return newMaxArea
-	}
+	if grid[r][c] == 1 {
+		newMaxArea++
+		visited[r][c] = true
 
-	if grid[r][c] != 1 {
-		return newMaxArea 
-	}
+		if r-1 >= 0 && !visited[r-1][c] {
+			newMaxArea = newMaxArea + dfs(grid, visited, r-1, c)
+		}
 
-	newMaxArea++
-	visited[r][c] = true
+		if c-1 >= 0 && !visited[r][c-1] {
+			newMaxArea = newMaxArea + dfs(grid, visited, r, c-1)
+		}
 
-	if r-1 >= 0 && !visited[r][c] {
-		newMaxArea = newMaxArea + dfs(grid, visited, r-1, c)
-	}
+		if r+1 < len(grid) && !visited[r+1][c] {
+			newMaxArea = newMaxArea + dfs(grid, visited, r+1, c)
+		}
 
-	if c-1 >= 0 {
-		newMaxArea = newMaxArea + dfs(grid, visited, r, c-1)
-	}
-
-	if r+1 < len(grid) {
-		newMaxArea = newMaxArea + dfs(grid, visited, r+1, c)
-	}
-
-	if c+1 < len(grid[0]) {
-		newMaxArea = newMaxArea + dfs(grid, visited, r, c+1)
+		if c+1 < len(grid[0]) && !visited[r][c+1] {
+			newMaxArea = newMaxArea + dfs(grid, visited, r, c+1)
+		}
 	}
 
 	return newMaxArea
