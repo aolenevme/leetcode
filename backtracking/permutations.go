@@ -32,18 +32,22 @@ import "fmt"
 
 func main() {
 	fmt.Println(permute([]int{1, 2, 3}))
+	fmt.Println(permute([]int{0, 1}))
+	fmt.Println(permute([]int{1}))
 }
 
 func permute(nums []int) [][]int {
 	permutations := [][]int{}
 
-	recursion(nums, []int{}, &permutations)
+	finalLen := len(nums)
+
+	recursion(nums, []int{}, finalLen, &permutations)
 
 	return permutations
 }
 
-func recursion(nums []int, path []int, permutations *[][]int)  {
-	if len(path) == 3 {
+func recursion(nums []int, path []int, finalLen int, permutations *[][]int) {
+	if len(path) == finalLen {
 		*permutations = append(*permutations, path)
 
 		return
@@ -52,7 +56,19 @@ func recursion(nums []int, path []int, permutations *[][]int)  {
 	for i, num := range nums {
 		nextPath := append(path, num)
 
-		// Надо правильно собирать следующий slice
-		recursion(nums[i:], nextPath, permutations)
+		recursion(merge(nums[:i], nums[i+1:]), nextPath, finalLen, permutations)
 	}
+}
+
+func merge(first, second []int) []int {
+	newSlice := make([]int, 0, len(first)+len(second))
+	for _, num := range first {
+		newSlice = append(newSlice, num)
+	}
+
+	for _, num := range second {
+		newSlice = append(newSlice, num)
+	}
+
+	return newSlice
 }
