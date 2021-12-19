@@ -46,20 +46,20 @@ func main() {
 }
 
 func letterCasePermutation(s string) []string {
-  results := []string{}
+	results := []string{}
 	path := ""
 
-  dfs([]rune(s), []rune(path), 0, &results)
+	dfs([]rune(s), []rune(path), 0, &results)
 
-  return results
+	return results
 }
 
 func dfs(s, path []rune, idx int, results *[]string) {
-  if len(path)  == len(s) {
-    *results = append(*results, string(path))
+	if len(path) == len(s) {
+		*results = append(*results, string(path))
 
 		return
-  }
+	}
 
 	letter := s[idx]
 
@@ -73,4 +73,3 @@ func dfs(s, path []rune, idx int, results *[]string) {
 		dfs(s, append(path, unicode.ToLower(letter)), idx+1, results)
 	}
 }
-

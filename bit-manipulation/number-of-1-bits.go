@@ -41,8 +41,8 @@ import (
 )
 
 func main() {
-	fmt.Println(hammingWeight(00000000000000000000000000001011))
-	fmt.Println(hammingWeight(00000000000000000000000010000000))
+	fmt.Println(hammingWeight(0o0000000000000000000000000001011))
+	fmt.Println(hammingWeight(0o0000000000000000000000010000000))
 }
 
 func hammingWeight(num uint32) int {
