@@ -50,7 +50,7 @@ function threeSum(nums) {
 		let end = nums.length - 1;
 
 		while (middle < end) {
-			let sum = nums[start] + nums[middle] + nums[end];
+			const sum = nums[start] + nums[middle] + nums[end];
 
 			if (sum === 0) {
 				result.push([nums[start], nums[middle], nums[end]])
