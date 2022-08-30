@@ -117,7 +117,7 @@ var cleanRoom = function(robot) {
      const nextDirection = directions[nextDirectionNumber];
 
      const nextRow = row + nextDirection[0];
-     const nextColumn = row + nextDirection[1];
+     const nextColumn = column + nextDirection[1];
      const nextCell = [nextRow, nextColumn];
 
      if (!visited.has(`${nextRow},${nextColumn}`) && robot.move()) {
