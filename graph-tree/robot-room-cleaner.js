@@ -128,4 +128,6 @@ var cleanRoom = function(robot) {
      robot.turnRight();
    }
   };
+
+  recurse();
 };
