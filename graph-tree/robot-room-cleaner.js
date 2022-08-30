@@ -91,5 +91,41 @@ Constraints:
  * @return {void}
  */
 var cleanRoom = function(robot) {
-    
+  const visited = new Set();
+  const directions = [
+    [-1, 0],
+    [0, 1],
+    [1, 0],
+    [0, -1],
+  ];
+
+  const goBack = () => {
+    robot.turnRight();
+    robot.turnRight();
+    robot.move();
+    robot.turnRight();
+    robot.turnRight();
+  };
+
+  const recurse = ([row, column] = [0, 0], direction = 0) => {
+    visited.add(`${row},${column}`);
+    robot.clean();
+
+    for (let directionCounter = 0; directionCounter < directions.length; directionCounter++) {
+     const nextDirectionNumber = (directionCounter + direction) % 4;
+     const nextDirection = directions[nextDirectionNumber];
+
+     const nextRow = row + nextDirection[0];
+     const nextColumn = row + nextDirection[1];
+     const nextCell = [nextRow, nextColumn];
+
+     if (!visited.has(`${nextRow},${nextColumn}`) && robot.move()) {
+       recurse(nextCell, nextDirection);
+
+       goBack();
+     }
+
+     robot.turnRight();
+   }
+  };
 };
