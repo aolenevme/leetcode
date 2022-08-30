@@ -108,8 +108,9 @@ var cleanRoom = function(robot) {
   };
 
   const recurse = ([row, column] = [0, 0], direction = 0) => {
-    visited.add(`${row},${column}`);
     robot.clean();
+
+    visited.add(`${row},${column}`);
 
     for (let directionCounter = 0; directionCounter < directions.length; directionCounter++) {
      const nextDirectionNumber = (directionCounter + direction) % 4;
