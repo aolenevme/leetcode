@@ -32,7 +32,7 @@ The number of the nodes in the tree is in the range [0, 100].
  * @param {TreeNode} root
  * @return {number[]}
  */
-var postorderTraversal = function(root) {
+var postorderTraversal = function (root) {
   return recurse(root);
 };
 
@@ -40,6 +40,6 @@ function recurse(node) {
   if (!node) {
     return [];
   }
-    
+
   return [...recurse(node.left), ...recurse(node.right), node.val];
 }

@@ -10,7 +10,7 @@ In one step, if the current number is even, you have to divide it by 2, otherwis
  * @param {number} num
  * @return {number}
  */
-var numberOfSteps = function(num) {
+var numberOfSteps = function (num) {
   return count(num, 0);
 };
 
@@ -18,13 +18,13 @@ function count(num, counter) {
   if (num === 0) {
     return counter;
   }
-  
+
   const nextCounter = counter + 1;
-  
+
   if (num % 2 === 0) {
     return count(num / 2, nextCounter);
   }
-    
+
   return count(num - 1, nextCounter);
 }
 

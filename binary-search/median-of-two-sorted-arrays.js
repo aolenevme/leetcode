@@ -30,18 +30,21 @@ nums2.length == n
  * @return {number}
  */
 const findMedianSortedArrays = (nums1, nums2) => {
-    const length = nums1.length + nums2.length;
-    const middle = Math.floor(length / 2 + 1);
+  const length = nums1.length + nums2.length;
+  const middle = Math.floor(length / 2 + 1);
 
-    let firstIterator = 0;
-    let secondIterator = 0;
-    let last, beforeLast;
-    
-    for (let i = 0; i < middle; i++) {
-        beforeLast = last;
-        
-        last = nums1[firstIterator] < (nums2[secondIterator] ?? Infinity) ? nums1[firstIterator++] : nums2[secondIterator++];
-    }
-    
-    return length % 2 === 1 ? last : (last + beforeLast) / 2;
+  let firstIterator = 0;
+  let secondIterator = 0;
+  let last, beforeLast;
+
+  for (let i = 0; i < middle; i++) {
+    beforeLast = last;
+
+    last =
+      nums1[firstIterator] < (nums2[secondIterator] ?? Infinity)
+        ? nums1[firstIterator++]
+        : nums2[secondIterator++];
+  }
+
+  return length % 2 === 1 ? last : (last + beforeLast) / 2;
 };

@@ -28,40 +28,40 @@ Constraints:
 */
 
 const isSplittable = (arr, mid, m) => {
-    let part = 1;
-    let sum = 0;
-    
-    for (let i = 0; i < arr.length; i++) {
-        sum += arr[i];
-        
-        if (sum > mid) {
-            part++;
-            sum = arr[i];
-        }
+  let part = 1;
+  let sum = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+
+    if (sum > mid) {
+      part++;
+      sum = arr[i];
     }
-    
-    return part <= m; 
+  }
+
+  return part <= m;
 };
 
-var splitArray = function(nums, m) {
-    let low = Math.max(...nums);
-    let high = 0;
-    let ans = 0;
-    
-    for (const num of nums) {
-        high += num;
+var splitArray = function (nums, m) {
+  let low = Math.max(...nums);
+  let high = 0;
+  let ans = 0;
+
+  for (const num of nums) {
+    high += num;
+  }
+
+  while (low <= high) {
+    const mid = Math.floor(low + (high - low) / 2);
+
+    if (isSplittable(nums, mid, m)) {
+      ans = mid;
+      high = mid - 1;
+    } else {
+      low = mid + 1;
     }
-    
-    while (low <= high) {
-        const mid = Math.floor(low + (high - low) / 2);
-        
-        if(isSplittable(nums, mid, m)) {
-            ans = mid;
-            high = mid - 1;
-        } else {
-            low = mid + 1;
-        }
-    }
-    
-    return ans;
+  }
+
+  return ans;
 };

@@ -28,51 +28,51 @@ s consists of lowercase English letters.
  * @param {string} s
  * @return {number[]}
  */
-var partitionLabels = function(s) {
-    const map = new Map();
+var partitionLabels = function (s) {
+  const map = new Map();
 
-    for (let i = 0; i < s.length; i++) {
-        const char = s[i];
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
 
-        if (!map.has(char)) {
-            map.set(char, [i, i]);
-        } else {
-            const [min, max] = map.get(char);
+    if (!map.has(char)) {
+      map.set(char, [i, i]);
+    } else {
+      const [min, max] = map.get(char);
 
-            map.set(char, [Math.min(i, min), Math.max(i, max)]);
-        }
+      map.set(char, [Math.min(i, min), Math.max(i, max)]);
+    }
+  }
+
+  const mergedRanges = [];
+
+  for (const [candidateMin, candidateMax] of map.values()) {
+    let isFound = false;
+
+    for (let i = 0; i < mergedRanges.length; i++) {
+      const [mergedMin, mergedMax] = mergedRanges[i];
+
+      if (
+        (mergedMin <= candidateMin && candidateMin <= mergedMax) ||
+        (candidateMin <= mergedMin && candidateMax >= mergedMin) ||
+        (mergedMin <= candidateMin && candidateMax <= mergedMax) ||
+        (candidateMin <= mergedMin && mergedMax <= candidateMax)
+      ) {
+        const min = Math.min(candidateMin, mergedMin);
+        const max = Math.max(candidateMax, mergedMax);
+
+        mergedRanges[i] = [min, max];
+        isFound = true;
+
+        break;
+      }
     }
 
-    const mergedRanges = [];
-
-    for (const [candidateMin, candidateMax] of map.values()) {
-        let isFound = false;
-
-        for (let i = 0; i < mergedRanges.length; i++) {
-            const [mergedMin, mergedMax] = mergedRanges[i];
-
-            if (
-                (mergedMin <= candidateMin && candidateMin <= mergedMax)
-                || (candidateMin <= mergedMin && candidateMax >= mergedMin)
-                || (mergedMin <= candidateMin && candidateMax <= mergedMax)
-                || (candidateMin <= mergedMin && mergedMax <= candidateMax)
-            ) {
-                const min = Math.min(candidateMin, mergedMin);
-                const max = Math.max(candidateMax, mergedMax);
-
-                mergedRanges[i] = [min, max];
-                isFound = true;
-
-                break;
-            }
-        }
-
-        if (!isFound) {
-            mergedRanges.push([candidateMin, candidateMax]);
-        }
+    if (!isFound) {
+      mergedRanges.push([candidateMin, candidateMax]);
     }
+  }
 
-    const result = mergedRanges.map(([min, max]) => (max - min + 1));
+  const result = mergedRanges.map(([min, max]) => max - min + 1);
 
-    return result;
+  return result;
 };

@@ -36,34 +36,34 @@ It is guaranteed that the list represents a number that does not have leading ze
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function(l1, l2) {
-    const l = new ListNode();
-    const prevL = null;
-    
-    recurse(l1, l2, l, prevL, 0);
-    
-    return l;
+var addTwoNumbers = function (l1, l2) {
+  const l = new ListNode();
+  const prevL = null;
+
+  recurse(l1, l2, l, prevL, 0);
+
+  return l;
 };
 
 function recurse(l1, l2, l, prevL, prev) {
-    if (!l1 && !l2) {
-        if (prev !== 0) {
-            l.val = prev;
-        } else {
-            prevL.next = null;
-        }
-         
-        return;
+  if (!l1 && !l2) {
+    if (prev !== 0) {
+      l.val = prev;
+    } else {
+      prevL.next = null;
     }
-    
-    const l1Val = !l1 ? 0 : l1.val;
-    const l2Val = !l2 ? 0 : l2.val;
-    
-    const newVal = l1Val + l2Val + prev;
-    
-    l.val = newVal % 10;
-    
-    l.next = new ListNode();
-    
-    recurse(l1?.next, l2?.next, l.next, l, Math.floor(newVal / 10));
+
+    return;
+  }
+
+  const l1Val = !l1 ? 0 : l1.val;
+  const l2Val = !l2 ? 0 : l2.val;
+
+  const newVal = l1Val + l2Val + prev;
+
+  l.val = newVal % 10;
+
+  l.next = new ListNode();
+
+  recurse(l1?.next, l2?.next, l.next, l, Math.floor(newVal / 10));
 }

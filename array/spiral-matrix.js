@@ -22,72 +22,72 @@ n == matrix[i].length
  * @param {number[][]} matrix
  * @return {number[]}
  */
-var spiralOrder = function(matrix) {
-    let left = 0;
-    let right = matrix[0].length - 1;
-    let top = 0;
-    let bottom = matrix.length - 1;
+var spiralOrder = function (matrix) {
+  let left = 0;
+  let right = matrix[0].length - 1;
+  let top = 0;
+  let bottom = matrix.length - 1;
 
-    let hDiff = 1; // variants: 0 | -1 | 0  | 1
-    let vDiff = 0; // variants: 1 | 0  | -1 | 0
+  let hDiff = 1; // variants: 0 | -1 | 0  | 1
+  let vDiff = 0; // variants: 1 | 0  | -1 | 0
 
-    let v = top;
-    let h = left;
+  let v = top;
+  let h = left;
 
-    const queue = [];
+  const queue = [];
 
-    while (left <= right && top <= bottom) {
-        if (hDiff === 1 && vDiff === 0) {
-            h = left;
-            v = top;
+  while (left <= right && top <= bottom) {
+    if (hDiff === 1 && vDiff === 0) {
+      h = left;
+      v = top;
 
-            while (h <= right) {
-                queue.push(matrix[v][h]);
+      while (h <= right) {
+        queue.push(matrix[v][h]);
 
-                h++;
-            }
+        h++;
+      }
 
-            top++;
-        } else if (hDiff === 0 && vDiff === 1) {
-            h = right;
-            v = top;
+      top++;
+    } else if (hDiff === 0 && vDiff === 1) {
+      h = right;
+      v = top;
 
-            while (v <= bottom) {
-                queue.push(matrix[v][h]);
-                
-                v++;
-            }
+      while (v <= bottom) {
+        queue.push(matrix[v][h]);
 
-            right--;
-        } else if (hDiff === -1 && vDiff === 0) {
-            h = right;
-            v = bottom;
+        v++;
+      }
 
-            while (h >= left) {
-                queue.push(matrix[v][h]);
+      right--;
+    } else if (hDiff === -1 && vDiff === 0) {
+      h = right;
+      v = bottom;
 
-                h--;
-            }
+      while (h >= left) {
+        queue.push(matrix[v][h]);
 
-            bottom--;
-        } else if (hDiff === 0 && vDiff === -1) {
-            h = left;
-            v = bottom;
+        h--;
+      }
 
-            while (v >= top) {
-                queue.push(matrix[v][h]);
+      bottom--;
+    } else if (hDiff === 0 && vDiff === -1) {
+      h = left;
+      v = bottom;
 
-                v--;
-            }
+      while (v >= top) {
+        queue.push(matrix[v][h]);
 
-            left++;
-        }
+        v--;
+      }
 
-        const tempHDiff = hDiff;
-
-        hDiff = hDiff - hDiff - vDiff;
-        vDiff = tempHDiff;
+      left++;
     }
 
-    return queue;
+    const tempHDiff = hDiff;
+
+    hDiff = hDiff - hDiff - vDiff;
+    vDiff = tempHDiff;
+  }
+
+  return queue;
 };

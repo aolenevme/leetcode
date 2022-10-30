@@ -33,23 +33,23 @@ The number of nodes in the tree is in the range [1, 104].
  * @param {TreeNode} root
  * @return {number}
  */
-var diameterOfBinaryTree = function(root) {
-    let max = 0;
-    
-    const recurse = (node) => {
-        if (!node) {
-            return 0;
-        }
-        
-        const left = recurse(node.left);
-        const right = recurse(node.right);
-        
-        max = Math.max(max, left + right);
-        
-        return Math.max(left, right) + 1;
-    };
-    
-    recurse(root);
-    
-    return max;
+var diameterOfBinaryTree = function (root) {
+  let max = 0;
+
+  const recurse = (node) => {
+    if (!node) {
+      return 0;
+    }
+
+    const left = recurse(node.left);
+    const right = recurse(node.right);
+
+    max = Math.max(max, left + right);
+
+    return Math.max(left, right) + 1;
+  };
+
+  recurse(root);
+
+  return max;
 };

@@ -32,27 +32,29 @@ s consists of uppercase and lowercase English letters and digits.
  * @param {string} s
  * @return {string}
  */
-var frequencySort = function(s) {
-	const map = new Map();
+var frequencySort = function (s) {
+  const map = new Map();
 
-	for (const char of s) {
-		if (!map.has(char)) {
-			map.set(char, 1);
-		} else {
-			map.set(char, map.get(char) + 1);
-		}
-	}
+  for (const char of s) {
+    if (!map.has(char)) {
+      map.set(char, 1);
+    } else {
+      map.set(char, map.get(char) + 1);
+    }
+  }
 
-	const array = Array.from(map);
-	const sorted = array.sort(([_, counter1], [__, counter2]) => counter2 - counter1);
+  const array = Array.from(map);
+  const sorted = array.sort(
+    ([_, counter1], [__, counter2]) => counter2 - counter1
+  );
 
-	const result = sorted.reduce((acc, [char, counter]) => {
-		for (let i = 0; i < counter; i++) {
-			acc += char;
-		}
+  const result = sorted.reduce((acc, [char, counter]) => {
+    for (let i = 0; i < counter; i++) {
+      acc += char;
+    }
 
-		return acc;
-	}, "");
+    return acc;
+  }, "");
 
-	return result; 
+  return result;
 };

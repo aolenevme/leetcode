@@ -24,40 +24,40 @@ Constraints:
  * @param {number[]} nums
  * @return {boolean}
  */
-var canJump = function(nums) {
-    const cache = {};
-    
-    if (nums.length === 1) {
-        return true;
-    }
-    
-    for (let idx = nums.length - 1; idx >= 0; idx--) {
-        cache[idx] = recurse(nums, idx, cache);
-    }
-    
-    return cache[0];
+var canJump = function (nums) {
+  const cache = {};
+
+  if (nums.length === 1) {
+    return true;
+  }
+
+  for (let idx = nums.length - 1; idx >= 0; idx--) {
+    cache[idx] = recurse(nums, idx, cache);
+  }
+
+  return cache[0];
 };
 
 function recurse(nums, idx, cache) {
-    if (cache[idx] !== undefined) {
-        return cache[idx];
-    }
-    
-    if (idx === nums.length - 1) {
-        return true;
-    }
-    
-    const maxSteps = nums[idx];
-    if (maxSteps === 0 || idx >= nums.length) {
-        return false;
-    }
-    
-    let isReachable = false;
-    for (let i = 1; i <= maxSteps; i++) {
-        isReachable = isReachable || recurse(nums, idx + i, cache);
-    }
-    
-    cache[idx] = isReachable;
-    
-    return isReachable;
+  if (cache[idx] !== undefined) {
+    return cache[idx];
+  }
+
+  if (idx === nums.length - 1) {
+    return true;
+  }
+
+  const maxSteps = nums[idx];
+  if (maxSteps === 0 || idx >= nums.length) {
+    return false;
+  }
+
+  let isReachable = false;
+  for (let i = 1; i <= maxSteps; i++) {
+    isReachable = isReachable || recurse(nums, idx + i, cache);
+  }
+
+  cache[idx] = isReachable;
+
+  return isReachable;
 }

@@ -27,25 +27,25 @@ The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit int
  * @param {number[]} nums
  * @return {number}
  */
-var maxProduct = function(nums) {
-    if (nums.length === 0) {
-        return 0;
-    }
-    
-    let max = nums[0];
-    let min = nums[0];
-    let result = max;
-    
-    for (let i = 1; i < nums.length; i++) {
-        let current = nums[i];
-        
-        let tempMax = Math.max(current, max * current, min * current);
-        min = Math.min(current, max * current, min * current);
-        
-        max = tempMax;
-        
-        result = Math.max(max, result);
-    }
-    
-    return result;
+var maxProduct = function (nums) {
+  if (nums.length === 0) {
+    return 0;
+  }
+
+  let max = nums[0];
+  let min = nums[0];
+  let result = max;
+
+  for (let i = 1; i < nums.length; i++) {
+    let current = nums[i];
+
+    let tempMax = Math.max(current, max * current, min * current);
+    min = Math.min(current, max * current, min * current);
+
+    max = tempMax;
+
+    result = Math.max(max, result);
+  }
+
+  return result;
 };

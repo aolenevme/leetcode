@@ -70,10 +70,10 @@ Constraints:
  *     this.turnLeft = function() {
  *         ...
  *     };
- * 
+ *
  *     // Robot will stay in the same cell after calling turnLeft/turnRight.
  *     // Each turn will be 90 degrees.
- *     @return {void} 
+ *     @return {void}
  *     this.turnRight = function() {
  *         ...
  *     };
@@ -90,7 +90,7 @@ Constraints:
  * @param {Robot} robot
  * @return {void}
  */
-var cleanRoom = function(robot) {
+var cleanRoom = function (robot) {
   const visited = new Set();
   const directions = [
     [-1, 0],
@@ -112,22 +112,26 @@ var cleanRoom = function(robot) {
 
     visited.add(`${row},${column}`);
 
-    for (let directionCounter = 0; directionCounter < directions.length; directionCounter++) {
-     const nextDirectionNumber = (directionCounter + direction) % 4;
-     const nextDirection = directions[nextDirectionNumber];
+    for (
+      let directionCounter = 0;
+      directionCounter < directions.length;
+      directionCounter++
+    ) {
+      const nextDirectionNumber = (directionCounter + direction) % 4;
+      const nextDirection = directions[nextDirectionNumber];
 
-     const nextRow = row + nextDirection[0];
-     const nextColumn = column + nextDirection[1];
-     const nextCell = [nextRow, nextColumn];
+      const nextRow = row + nextDirection[0];
+      const nextColumn = column + nextDirection[1];
+      const nextCell = [nextRow, nextColumn];
 
-     if (!visited.has(`${nextRow},${nextColumn}`) && robot.move()) {
-       recurse(nextCell, nextDirection);
+      if (!visited.has(`${nextRow},${nextColumn}`) && robot.move()) {
+        recurse(nextCell, nextDirection);
 
-       goBack();
-     }
+        goBack();
+      }
 
-     robot.turnRight();
-   }
+      robot.turnRight();
+    }
   };
 
   recurse();

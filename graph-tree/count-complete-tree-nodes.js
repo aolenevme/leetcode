@@ -37,51 +37,51 @@ The tree is guaranteed to be complete.
  * @param {TreeNode} root
  * @return {number}
  */
-var countNodes = function(root) {
-    if (!root) {
-        return 0;
-    }
-    
-    return recurse(root);
+var countNodes = function (root) {
+  if (!root) {
+    return 0;
+  }
+
+  return recurse(root);
 };
 
 function recurse(node) {
-    const leftHeight = recurseLeft(node, 0);
-    const rightHeight = recurseRight(node, 0);
-    
-    if (leftHeight === rightHeight) {
-        return Math.pow(2, leftHeight + 1) - 1;
-    }
-    
-    let count = 1;
-    
-    if (leftHeight > 0) {
-        count += recurse(node.left);
-    }
-    
-    if (rightHeight > 0) {
-        count += recurse(node.right);
-    }
-    
-    return count;
+  const leftHeight = recurseLeft(node, 0);
+  const rightHeight = recurseRight(node, 0);
+
+  if (leftHeight === rightHeight) {
+    return Math.pow(2, leftHeight + 1) - 1;
+  }
+
+  let count = 1;
+
+  if (leftHeight > 0) {
+    count += recurse(node.left);
+  }
+
+  if (rightHeight > 0) {
+    count += recurse(node.right);
+  }
+
+  return count;
 }
 
 function recurseLeft(node, height) {
-    const left = node.left;
-    
-    if (left) {
-        return recurseLeft(left, height + 1);
-    }
-    
-    return height;
+  const left = node.left;
+
+  if (left) {
+    return recurseLeft(left, height + 1);
+  }
+
+  return height;
 }
 
 function recurseRight(node, height) {
-    const right = node.right;
-    
-    if (right) {
-        return recurseRight(right, height + 1);
-    }
-    
-    return height;
+  const right = node.right;
+
+  if (right) {
+    return recurseRight(right, height + 1);
+  }
+
+  return height;
 }

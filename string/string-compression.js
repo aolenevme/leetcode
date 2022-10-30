@@ -37,55 +37,55 @@ chars[i] is a lowercase English letter, uppercase English letter, digit, or symb
  * @param {character[]} chars
  * @return {number}
  */
-var compress = function(chars) {
-    if (chars.length === 1) {
-        return 1;
-    }
+var compress = function (chars) {
+  if (chars.length === 1) {
+    return 1;
+  }
 
-    let prevChar = chars[0];
-    let counter = 1;
-    let length = 1;
+  let prevChar = chars[0];
+  let counter = 1;
+  let length = 1;
 
-    for (let i = 1; i < chars.length; i++) {
-        const char = chars[i];
+  for (let i = 1; i < chars.length; i++) {
+    const char = chars[i];
 
-        if (prevChar === char) {
-            counter++;
-        } else {
-            if (counter > 1) {
-                for (const number of String(counter)) {
-                    chars[length] = number;
-
-                    length++;
-                }
-
-                chars[length] = char;
-
-                length++;
-            } else {
-                chars[length] = char;
-
-                length++;
-            }
-
-            counter = 1;
-            prevChar = char;
-        }
-    }
-
-    if (counter > 1) {
-        chars[length - 1] = prevChar;
-
+    if (prevChar === char) {
+      counter++;
+    } else {
+      if (counter > 1) {
         for (const number of String(counter)) {
-            chars[length] = number;
+          chars[length] = number;
 
-            length++;
+          length++;
         }
-    }
 
-    if (counter === 1) {
-        chars[length - 1] = prevChar;
-    }
+        chars[length] = char;
 
-    return length;
+        length++;
+      } else {
+        chars[length] = char;
+
+        length++;
+      }
+
+      counter = 1;
+      prevChar = char;
+    }
+  }
+
+  if (counter > 1) {
+    chars[length - 1] = prevChar;
+
+    for (const number of String(counter)) {
+      chars[length] = number;
+
+      length++;
+    }
+  }
+
+  if (counter === 1) {
+    chars[length - 1] = prevChar;
+  }
+
+  return length;
 };

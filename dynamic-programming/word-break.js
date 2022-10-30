@@ -33,34 +33,34 @@ All the strings of wordDict are unique.
  * @param {string[]} wordDict
  * @return {boolean}
  */
-var wordBreak = function(s, wordDict) {
-    const set = new Set(wordDict);
-    const queue = [0];
+var wordBreak = function (s, wordDict) {
+  const set = new Set(wordDict);
+  const queue = [0];
 
-    const visited = [];
-    for (let i = 0; i < s.length; i++) {
-        visited.push(false);
+  const visited = [];
+  for (let i = 0; i < s.length; i++) {
+    visited.push(false);
+  }
+
+  while (queue.length) {
+    const start = queue.shift();
+
+    if (visited[start]) {
+      continue;
     }
 
-    while (queue.length) {
-        const start = queue.shift();
+    for (let end = start + 1; end <= s.length; end++) {
+      if (set.has(s.substring(start, end))) {
+        queue.push(end);
 
-        if (visited[start]) {
-            continue;
+        if (end === s.length) {
+          return true;
         }
-
-        for (let end = start + 1; end <= s.length; end++) {
-            if (set.has(s.substring(start, end))) {
-                queue.push(end);
-
-                if (end === s.length) {
-                    return true;
-                }
-            }
-        }
-
-        visited[start] = true;
+      }
     }
 
-    return false;
+    visited[start] = true;
+  }
+
+  return false;
 };

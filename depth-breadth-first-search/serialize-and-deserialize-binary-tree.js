@@ -34,8 +34,8 @@ The number of nodes in the tree is in the range [0, 104].
  * @param {TreeNode} root
  * @return {string}
  */
-var serialize = function(root) {
-    return JSON.stringify(root);
+var serialize = function (root) {
+  return JSON.stringify(root);
 };
 
 /**
@@ -44,23 +44,23 @@ var serialize = function(root) {
  * @param {string} data
  * @return {TreeNode}
  */
-var deserialize = function(data) {
-    const parsed = JSON.parse(data);
-    
-    return recurse(parsed)
+var deserialize = function (data) {
+  const parsed = JSON.parse(data);
+
+  return recurse(parsed);
 };
 
-function recurse(parsed) {     
-    if (!parsed) {
-        return null;
-    }
-    
-    const node = new TreeNode(parsed.val);
-    
-    node.left = recurse(parsed.left);
-    node.right = recurse(parsed.right);
-    
-    return node;
+function recurse(parsed) {
+  if (!parsed) {
+    return null;
+  }
+
+  const node = new TreeNode(parsed.val);
+
+  node.left = recurse(parsed.left);
+  node.right = recurse(parsed.right);
+
+  return node;
 }
 
 /**

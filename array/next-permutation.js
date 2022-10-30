@@ -34,58 +34,61 @@ Constraints:
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-var nextPermutation = function(nums) {
-	// 34251 -> 34512 -> 34521 -> 35124 -> 35142 -> 35214 -> 35241 -> 35412 -> 35421 -> 41235
+var nextPermutation = function (nums) {
+  // 34251 -> 34512 -> 34521 -> 35124 -> 35142 -> 35214 -> 35241 -> 35412 -> 35421 -> 41235
 
-	const length = nums.length;
+  const length = nums.length;
 
-	if (length === 1) {
-		return;
-	}
+  if (length === 1) {
+    return;
+  }
 
-	if (length === 2) {
-		swap(nums, 0, 1);
+  if (length === 2) {
+    swap(nums, 0, 1);
 
-		return;
-	}
+    return;
+  }
 
-	let firstSmallerThanIdx = -1;
-	let firstSmallerThanNum = 101;
+  let firstSmallerThanIdx = -1;
+  let firstSmallerThanNum = 101;
 
-	for (let i = 0; i < nums.length - 1; i++) {
-		if (nums[i] < nums[i + 1]) {
-			firstSmallerThanIdx = i;
-			firstSmallerThanNum = nums[i];
-		}
-	}
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] < nums[i + 1]) {
+      firstSmallerThanIdx = i;
+      firstSmallerThanNum = nums[i];
+    }
+  }
 
-	let justBiggerThanIdx = -1;
-	let justBiggerThanNum = 101
+  let justBiggerThanIdx = -1;
+  let justBiggerThanNum = 101;
 
-	for (let i = firstSmallerThanIdx; i < nums.length; i++) {
-		const nextJustBiggerThanNum = nums[i];
+  for (let i = firstSmallerThanIdx; i < nums.length; i++) {
+    const nextJustBiggerThanNum = nums[i];
 
-		if (firstSmallerThanNum < nextJustBiggerThanNum && nextJustBiggerThanNum < justBiggerThanNum) {
-			justBiggerThanIdx = i;
-			justBiggerThanNum = nums[i]
-		}
-	}
+    if (
+      firstSmallerThanNum < nextJustBiggerThanNum &&
+      nextJustBiggerThanNum < justBiggerThanNum
+    ) {
+      justBiggerThanIdx = i;
+      justBiggerThanNum = nums[i];
+    }
+  }
 
-	if (firstSmallerThanIdx > -1 && justBiggerThanIdx > -1) {
-		swap(nums, firstSmallerThanIdx, justBiggerThanIdx);
-	}
+  if (firstSmallerThanIdx > -1 && justBiggerThanIdx > -1) {
+    swap(nums, firstSmallerThanIdx, justBiggerThanIdx);
+  }
 
-	bubbleSort(nums, firstSmallerThanIdx + 1);
+  bubbleSort(nums, firstSmallerThanIdx + 1);
 };
 
 let bubbleSort = (nums, idx) => {
-	let length = nums.length;
+  let length = nums.length;
 
-	for (let i = idx; i < length; i++) {
-		for (let j = idx; j < length; j++) {
-			if (nums[j] > nums[j + 1]) {
-				swap(nums, j, j + 1);
-			}
-		}
-	}
+  for (let i = idx; i < length; i++) {
+    for (let j = idx; j < length; j++) {
+      if (nums[j] > nums[j + 1]) {
+        swap(nums, j, j + 1);
+      }
+    }
+  }
 };

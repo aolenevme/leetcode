@@ -10,17 +10,15 @@ Given a string n that represents a positive decimal integer, return the minimum 
  * @param {string} n
  * @return {number}
  */
-var minPartitions = function(n) {
-  return n
-    .split("")
-    .reduce((max, next) => {
-      const nextNumber = Number(next);
-      if (nextNumber > max) {
-        return nextNumber;
-      }
-    
-      return max;
-    }, 0);
+var minPartitions = function (n) {
+  return n.split("").reduce((max, next) => {
+    const nextNumber = Number(next);
+    if (nextNumber > max) {
+      return nextNumber;
+    }
+
+    return max;
+  }, 0);
 };
 
 console.log(minPartitions("32"));

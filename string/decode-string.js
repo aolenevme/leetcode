@@ -32,69 +32,68 @@ All the integers in s are in the range [1, 300].
  * @param {string} s
  * @return {string}
  */
-var decodeString = function(s) {
-    const array = s.split("");
-    const prepared = [];
-    
-    for (let i = 0; i < array.length; i++) {
-        const char = array[i];
-        const number = Number(char);
-        
-        if (i !== 0) {
-            const prevNumber = Number(prepared[prepared.length - 1]);
-            
-            if (!Number.isNaN(number) && !Number.isNaN(prevNumber)) {
-                prepared[prepared.length - 1] = String(prevNumber * 10 + number);
-            
-                continue;
-            }
-        }
-        
-        prepared.push(char);
+var decodeString = function (s) {
+  const array = s.split("");
+  const prepared = [];
+
+  for (let i = 0; i < array.length; i++) {
+    const char = array[i];
+    const number = Number(char);
+
+    if (i !== 0) {
+      const prevNumber = Number(prepared[prepared.length - 1]);
+
+      if (!Number.isNaN(number) && !Number.isNaN(prevNumber)) {
+        prepared[prepared.length - 1] = String(prevNumber * 10 + number);
+
+        continue;
+      }
     }
-    
-    const multiplicators = [];
-    const result = [[]];
-    
-    let j = 0;
-    
-    
-    for (let i = 0; i < prepared.length; i++) {
-        const char = prepared[i];
-        const number = Number(char);
-        
-        if (!Number.isNaN(number)) {
-            multiplicators.push(number);
-            result.push([]);
-            
-            j = result.length - 1;
-            
-            continue;
-        }
-        
-        if (char === "[") {
-            continue;
-        }
-        
-        if (char === "]") {
-            const multiplicator = multiplicators.pop();
-            const str = result.pop();
-            
-            const local = [];
-            
-            for (k = 0; k < multiplicator; k++) {
-                local.push(...str);
-            }
-    
-            j--;
-            
-            result[j].push(...local);
-            
-            continue;
-        }
-        
-        result[j].push(char);
+
+    prepared.push(char);
+  }
+
+  const multiplicators = [];
+  const result = [[]];
+
+  let j = 0;
+
+  for (let i = 0; i < prepared.length; i++) {
+    const char = prepared[i];
+    const number = Number(char);
+
+    if (!Number.isNaN(number)) {
+      multiplicators.push(number);
+      result.push([]);
+
+      j = result.length - 1;
+
+      continue;
     }
-    
-    return result[0].join("");
+
+    if (char === "[") {
+      continue;
+    }
+
+    if (char === "]") {
+      const multiplicator = multiplicators.pop();
+      const str = result.pop();
+
+      const local = [];
+
+      for (k = 0; k < multiplicator; k++) {
+        local.push(...str);
+      }
+
+      j--;
+
+      result[j].push(...local);
+
+      continue;
+    }
+
+    result[j].push(char);
+  }
+
+  return result[0].join("");
 };

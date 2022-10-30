@@ -30,27 +30,27 @@ n == height.length
  * @param {number[]} height
  * @return {number}
  */
-var maxArea = function(heights) {
-    const length = heights.length;
-    
-    let max = 0;
-    
-    for (let left = 0, right = length - 1; left < length && right >= left;) {
-        const leftHeight = heights[left];
-        const rightHeight = heights[right];
-        
-        const height = Math.min(leftHeight, rightHeight);
-        const width = right - left;
-        const nextMax = height * width;
-            
-        max = Math.max(max, nextMax);
-        
-        if (leftHeight < rightHeight) {
-            left++;
-        } else {
-            right--;
-        }
+var maxArea = function (heights) {
+  const length = heights.length;
+
+  let max = 0;
+
+  for (let left = 0, right = length - 1; left < length && right >= left; ) {
+    const leftHeight = heights[left];
+    const rightHeight = heights[right];
+
+    const height = Math.min(leftHeight, rightHeight);
+    const width = right - left;
+    const nextMax = height * width;
+
+    max = Math.max(max, nextMax);
+
+    if (leftHeight < rightHeight) {
+      left++;
+    } else {
+      right--;
     }
-    
-    return max;
+  }
+
+  return max;
 };

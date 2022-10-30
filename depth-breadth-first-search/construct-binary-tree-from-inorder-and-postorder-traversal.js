@@ -34,27 +34,27 @@ postorder is guaranteed to be the postorder traversal of the tree.
  * @param {number[]} postorder
  * @return {TreeNode}
  */
-var buildTree = function(inorder, postorder) {
-    const hash = {};
-    
-    inorder.forEach((value, index) => {
-        hash[value] = index;
-    });
-    
-    function recurse(start, end) {
-        if (start > end) {
-            return null;
-        }
-        
-        const value = postorder.pop();
-        
-        const root = new TreeNode(value);
-        
-        root.right = recurse(hash[value] + 1, end);
-        root.left = recurse(start, hash[value] - 1);
-        
-        return root;
+var buildTree = function (inorder, postorder) {
+  const hash = {};
+
+  inorder.forEach((value, index) => {
+    hash[value] = index;
+  });
+
+  function recurse(start, end) {
+    if (start > end) {
+      return null;
     }
-    
-    return recurse(0, inorder.length - 1);  
+
+    const value = postorder.pop();
+
+    const root = new TreeNode(value);
+
+    root.right = recurse(hash[value] + 1, end);
+    root.left = recurse(start, hash[value] - 1);
+
+    return root;
+  }
+
+  return recurse(0, inorder.length - 1);
 };

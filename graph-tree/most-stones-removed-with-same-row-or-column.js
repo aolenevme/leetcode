@@ -42,45 +42,45 @@ No two stones are at the same coordinate point.
  * @param {number[][]} stones
  * @return {number}
  */
-var removeStones = function(stones) {
-    const adjacents = [];
-    
-    for (let i = 0; i < stones.length; i++) {
-        adjacents[i] = [];
+var removeStones = function (stones) {
+  const adjacents = [];
+
+  for (let i = 0; i < stones.length; i++) {
+    adjacents[i] = [];
+  }
+
+  for (let i = 0; i < stones.length; i++) {
+    for (let j = i + 1; j < stones.length; j++) {
+      if (isAdjacent(stones[i], stones[j])) {
+        adjacents[i].push(j);
+        adjacents[j].push(i);
+      }
     }
-    
-    for (let i = 0; i < stones.length; i++) {
-        for (let j = i + 1; j < stones.length; j++) {
-            if (isAdjacent(stones[i], stones[j])) {
-                adjacents[i].push(j);
-                adjacents[j].push(i);
-            }
-        }
+  }
+
+  const visited = {};
+  let islandsCounter = 0;
+
+  for (let stoneId = 0; stoneId < stones.length; stoneId++) {
+    if (!visited[stoneId]) {
+      islandsCounter++;
+      dfs(stones, adjacents, visited, stoneId);
     }
-    
-    const visited = {};
-    let islandsCounter = 0;
-    
-    for (let stoneId = 0; stoneId < stones.length; stoneId++) {
-        if (!visited[stoneId]) {
-            islandsCounter++;
-            dfs(stones, adjacents, visited, stoneId);
-        }
-    }
-    
-    return stones.length - islandsCounter;
-}
+  }
+
+  return stones.length - islandsCounter;
+};
 
 const isAdjacent = (stone1, stone2) => {
-    return stone1[0] === stone2[0] || stone1[1] === stone2[1];
-}
+  return stone1[0] === stone2[0] || stone1[1] === stone2[1];
+};
 
 const dfs = (stones, adjacents, visited, stoneId) => {
-    visited[stoneId] = true;
-    
-    for (const nextStonedId of adjacents[stoneId]) {
-        if (!visited[nextStonedId]) {
-            dfs(stones, adjacents, visited, nextStonedId)
-        }
+  visited[stoneId] = true;
+
+  for (const nextStonedId of adjacents[stoneId]) {
+    if (!visited[nextStonedId]) {
+      dfs(stones, adjacents, visited, nextStonedId);
     }
-}
+  }
+};

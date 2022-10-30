@@ -30,55 +30,57 @@ n == t.length
 s and t consist of uppercase and lowercase English letters.
 */
 
-var minWindow = function(s, t) {
-    let min = '', left = 0, right = -1;
-    let map = {};
-    
-    t.split('').forEach(element => {
-        if (map[element] === undefined) {
-            map[element] = 1;
-            
-            return;
-        }
-        
-        map[element] = map[element] + 1;
-    });
-	
-    let count = Object.keys(map).length;
+var minWindow = function (s, t) {
+  let min = "",
+    left = 0,
+    right = -1;
+  let map = {};
 
-    while (right <= s.length) {
-        if (count == 0) {
-            let current = s[left];
+  t.split("").forEach((element) => {
+    if (map[element] === undefined) {
+      map[element] = 1;
 
-            map[current]++;
-			
-            if (map[current] > 0) {
-                count++;
-            }
-			
-            let temp = s.substring(left, right + 1);
-            
-            if (min === "") {
-                min = temp;
-            } else {
-                min = min.length < temp.length ? min : temp;
-            }
-			
-            left++;
-            
-            continue;
-        }
-        
-        right++;
-            
-        let current = s[right];
-
-        map[current]--;
-			
-        if (map[current] === 0) {
-            count--;
-        }
+      return;
     }
-    
-    return min;
-}
+
+    map[element] = map[element] + 1;
+  });
+
+  let count = Object.keys(map).length;
+
+  while (right <= s.length) {
+    if (count == 0) {
+      let current = s[left];
+
+      map[current]++;
+
+      if (map[current] > 0) {
+        count++;
+      }
+
+      let temp = s.substring(left, right + 1);
+
+      if (min === "") {
+        min = temp;
+      } else {
+        min = min.length < temp.length ? min : temp;
+      }
+
+      left++;
+
+      continue;
+    }
+
+    right++;
+
+    let current = s[right];
+
+    map[current]--;
+
+    if (map[current] === 0) {
+      count--;
+    }
+  }
+
+  return min;
+};

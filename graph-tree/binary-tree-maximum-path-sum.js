@@ -34,25 +34,25 @@ The number of nodes in the tree is in the range [1, 3 * 104].
  * @param {TreeNode} root
  * @return {number}
  */
-var maxPathSum = function(root) {
-    let max = -1001;
-    
-    function recurse(node) {
-        if (!node) {
-            return 0;
-        }
-    
-        const left = Math.max(recurse(node.left), 0);
-        const right = Math.max(recurse(node.right), 0);
-    
-        const path = node.val + left + right;
-    
-        max = Math.max(max, path);
-    
-        return node.val + Math.max(left, right);
+var maxPathSum = function (root) {
+  let max = -1001;
+
+  function recurse(node) {
+    if (!node) {
+      return 0;
     }
-    
-    recurse(root);
-    
-    return max;
+
+    const left = Math.max(recurse(node.left), 0);
+    const right = Math.max(recurse(node.right), 0);
+
+    const path = node.val + left + right;
+
+    max = Math.max(max, path);
+
+    return node.val + Math.max(left, right);
+  }
+
+  recurse(root);
+
+  return max;
 };

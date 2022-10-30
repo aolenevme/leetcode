@@ -43,42 +43,44 @@ Follow up: Can you come up with an algorithm that runs in O(m + n) time?
  * @param {number} n
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
-var merge = function(nums1, m, nums2, n) {
-    const counters = new Map();
+var merge = function (nums1, m, nums2, n) {
+  const counters = new Map();
 
-    for (let i = 0; i < m; i++) {
-        const number = nums1[i];
+  for (let i = 0; i < m; i++) {
+    const number = nums1[i];
 
-        if (!counters.has(number)) {
-            counters.set(number, 1);
-        } else {
-            const prevCounter = counters.get(number);
+    if (!counters.has(number)) {
+      counters.set(number, 1);
+    } else {
+      const prevCounter = counters.get(number);
 
-            counters.set(number, prevCounter + 1);
-        }
+      counters.set(number, prevCounter + 1);
     }
+  }
 
-    for (let i = 0; i < n; i++) {
-        const number = nums2[i];
+  for (let i = 0; i < n; i++) {
+    const number = nums2[i];
 
-        if (!counters.has(number)) {
-            counters.set(number, 1);
-        } else {
-            const prevCounter = counters.get(number);
+    if (!counters.has(number)) {
+      counters.set(number, 1);
+    } else {
+      const prevCounter = counters.get(number);
 
-            counters.set(number, prevCounter + 1);
-        }
+      counters.set(number, prevCounter + 1);
     }
+  }
 
-    let i = 0;
-    const sortedEntries = Array.from(counters.entries()).sort(([a], [b]) => a - b);
+  let i = 0;
+  const sortedEntries = Array.from(counters.entries()).sort(
+    ([a], [b]) => a - b
+  );
 
-    for (const [key, counter] of sortedEntries) {  
-        for (let j = 1; j <= counter; j++) {
-            nums1[i] = key;
-            i++;
-        }
+  for (const [key, counter] of sortedEntries) {
+    for (let j = 1; j <= counter; j++) {
+      nums1[i] = key;
+      i++;
     }
+  }
 
-    return nums1;
+  return nums1;
 };

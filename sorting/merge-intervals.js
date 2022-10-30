@@ -23,41 +23,49 @@ intervals[i].length == 2
  * @param {number[][]} intervals
  * @return {number[][]}
  */
-var merge = function(intervals) {
-    intervals.sort(([first], [second]) => {
-        if (first <= second) {
-            return -1;
-        } else {
-            return 1;
-        }
-        
-        return 0;
-    });
-    
-    const results = [];
-    
-    for (const interval of intervals) { 
-        concat(results, interval);
+var merge = function (intervals) {
+  intervals.sort(([first], [second]) => {
+    if (first <= second) {
+      return -1;
+    } else {
+      return 1;
     }
-    
-    return results;
+
+    return 0;
+  });
+
+  const results = [];
+
+  for (const interval of intervals) {
+    concat(results, interval);
+  }
+
+  return results;
 };
 
 const isOverlapped = ([from1, to1], [from2, to2]) => {
-    return from2 <= to1 && from2 >= from1 || to2 <= to1 && from1 <= to2 || from1 <= from2 && to1 >= to2 || from1 >= from2 && to1 <= to2
-}
+  return (
+    (from2 <= to1 && from2 >= from1) ||
+    (to2 <= to1 && from1 <= to2) ||
+    (from1 <= from2 && to1 >= to2) ||
+    (from1 >= from2 && to1 <= to2)
+  );
+};
 
 const concat = (results, interval) => {
-    const length = results.length;
-    
-    if (length === 0 || !isOverlapped(results[length - 1], interval)) {
-        results.push(interval);
-        
-        return;
-    }
-    
-    const [from, to] = results[length - 1];
-    const [intervalFrom, intervalTo] = interval;
-            
-    results[length - 1] = [Math.min(from, intervalFrom), Math.max(to, intervalTo)];
-}
+  const length = results.length;
+
+  if (length === 0 || !isOverlapped(results[length - 1], interval)) {
+    results.push(interval);
+
+    return;
+  }
+
+  const [from, to] = results[length - 1];
+  const [intervalFrom, intervalTo] = interval;
+
+  results[length - 1] = [
+    Math.min(from, intervalFrom),
+    Math.max(to, intervalTo),
+  ];
+};

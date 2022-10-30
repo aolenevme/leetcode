@@ -43,25 +43,25 @@ The number of nodes in the tree is in the range [0, 5000].
  * @param {number} targetSum
  * @return {boolean}
  */
-var hasPathSum = function(root, targetSum) { 
-    return recurse(root, targetSum, 0);
+var hasPathSum = function (root, targetSum) {
+  return recurse(root, targetSum, 0);
 };
 
 function recurse(root, targetSum) {
-    if (!root) {
-        return false
-    }
+  if (!root) {
+    return false;
+  }
 
-    if (targetSum - root.val === 0 && !root.left && !root.right) {
-        return true
-    }
-    
-    if (root.left && recurse(root.left, targetSum - root.val)) {
-        return true
-    }
-    if (root.right && recurse(root.right, targetSum - root.val)) {
-        return true
-    }
-    
-    return false
+  if (targetSum - root.val === 0 && !root.left && !root.right) {
+    return true;
+  }
+
+  if (root.left && recurse(root.left, targetSum - root.val)) {
+    return true;
+  }
+  if (root.right && recurse(root.right, targetSum - root.val)) {
+    return true;
+  }
+
+  return false;
 }

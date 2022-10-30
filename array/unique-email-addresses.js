@@ -37,22 +37,20 @@ Domain names end with the ".com" suffix.
  * @param {string[]} emails
  * @return {number}
  */
-var numUniqueEmails = function(emails) {
-    const uniqueEmails = emails.reduce(
-        (acc, email) => {
-            const [localName, domainName] = email.split("@");
-            
-            const localNameAtIdx = localName.indexOf("+");
-            const localNameWithoutAt = localNameAtIdx !== -1 ? localName.slice(0, localNameAtIdx) : localName;
-            
-            const uniqueLocalName = localNameWithoutAt.split(".").join("");
-            
-            acc.add(uniqueLocalName + "@" + domainName);
-            
-            return acc;
-        },
-        new Set()
-    );
-    
-    return uniqueEmails.size;
+var numUniqueEmails = function (emails) {
+  const uniqueEmails = emails.reduce((acc, email) => {
+    const [localName, domainName] = email.split("@");
+
+    const localNameAtIdx = localName.indexOf("+");
+    const localNameWithoutAt =
+      localNameAtIdx !== -1 ? localName.slice(0, localNameAtIdx) : localName;
+
+    const uniqueLocalName = localNameWithoutAt.split(".").join("");
+
+    acc.add(uniqueLocalName + "@" + domainName);
+
+    return acc;
+  }, new Set());
+
+  return uniqueEmails.size;
 };

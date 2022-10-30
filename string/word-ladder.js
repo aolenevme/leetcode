@@ -34,8 +34,8 @@ All the words in wordList are unique.
  * @param {string[]} wordList
  * @return {number}
  */
-var ladderLength = function(beginWord, endWord, wordList) {
-  const wordSet = new Set(wordList)
+var ladderLength = function (beginWord, endWord, wordList) {
+  const wordSet = new Set(wordList);
 
   let queue = [beginWord];
 
@@ -51,7 +51,8 @@ var ladderLength = function(beginWord, endWord, wordList) {
 
       for (let i = 0; i < word.length; i++) {
         for (let j = 0; j < 26; j++) {
-          const newWord = word.slice(0, i) + String.fromCharCode(j + 97) + word.slice(i + 1);
+          const newWord =
+            word.slice(0, i) + String.fromCharCode(j + 97) + word.slice(i + 1);
 
           if (wordSet.has(newWord)) {
             next.push(newWord);

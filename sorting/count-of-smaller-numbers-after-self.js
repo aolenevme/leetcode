@@ -29,49 +29,49 @@ Constraints:
  * @param {number[]} nums
  * @return {number[]}
  */
-var countSmaller = function(nums) {
-    if (nums.length == 0 || !nums) {
-        return nums;
+var countSmaller = function (nums) {
+  if (nums.length == 0 || !nums) {
+    return nums;
+  }
+
+  const inversion = new Array(nums.length).fill(0);
+  const array = nums.map((val, index) => {
+    return {
+      val: val,
+      index: index,
+    };
+  });
+
+  const merge = (arr) => {
+    if (arr.length == 1) {
+      return arr;
     }
 
-    const inversion = new Array(nums.length).fill(0);
-    const array = nums.map((val, index) => {
-        return {
-            'val': val,
-            'index': index
-        }
-    });
+    let mid = Math.floor(arr.length / 2);
+    let left = merge(arr.slice(0, mid));
+    let right = merge(arr.slice(mid));
 
-    const merge = (arr) => {
-        if (arr.length == 1) {
-            return arr
-        }
+    let li = 0,
+      ri = 0,
+      inversionCount = 0,
+      sorted = [];
 
-        let mid = Math.floor(arr.length / 2);
-        let left = merge(arr.slice(0, mid));
-        let right = merge(arr.slice(mid));
+    while (li < left.length) {
+      if (right[ri] && left[li].val > right[ri].val) {
+        inversionCount++;
 
-        let li = 0,
-            ri = 0,
-            inversionCount = 0,
-            sorted = [];
+        sorted.push(right[ri++]);
+      } else {
+        inversion[left[li].index] += inversionCount;
 
-        while (li < left.length) {
-            if (right[ri] && left[li].val > right[ri].val) {
-                inversionCount++;
-                
-                sorted.push(right[ri++]);
-            } else {
-                inversion[left[li].index] += inversionCount;
-                
-                sorted.push(left[li++]);
-            }
-        }
-
-        return [...sorted, ...right.slice(ri)];
+        sorted.push(left[li++]);
+      }
     }
 
-    merge(array);
-    
-    return inversion;
-}
+    return [...sorted, ...right.slice(ri)];
+  };
+
+  merge(array);
+
+  return inversion;
+};

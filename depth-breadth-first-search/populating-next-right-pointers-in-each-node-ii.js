@@ -45,49 +45,49 @@ The recursive approach is fine. You may assume implicit stack space does not cou
  * @param {Node} root
  * @return {Node}
  */
-var connect = function(root) {
-    if (root) {
-        recurse([root]);
-    }
-    
-    return root;
+var connect = function (root) {
+  if (root) {
+    recurse([root]);
+  }
+
+  return root;
 };
 
 function recurse(level) {
-    const levelLength = level.length;
-    
-    if (levelLength === 0) {
-        return;
+  const levelLength = level.length;
+
+  if (levelLength === 0) {
+    return;
+  }
+
+  const nextLevel = [];
+
+  let i = 0;
+
+  while (i < levelLength) {
+    const left = level[i];
+    const right = level?.[i + 1];
+
+    left.next = right ?? null;
+
+    if (left?.left) {
+      nextLevel.push(left.left);
     }
-    
-    const nextLevel = [];
-    
-    let i = 0;
-    
-    while (i < levelLength) {
-        const left = level[i];
-        const right = level?.[i + 1];
-        
-        left.next = right ?? null;
-        
-        if (left?.left) {
-           nextLevel.push(left.left); 
-        }
-        
-        if (left?.right) {
-           nextLevel.push(left.right); 
-        }
-        
-        if (right?.left) {
-           nextLevel.push(right.left); 
-        }
-        
-        if (right?.right) {
-           nextLevel.push(right.right); 
-        } 
-        
-        i++;
+
+    if (left?.right) {
+      nextLevel.push(left.right);
     }
-    
-    recurse(nextLevel);
+
+    if (right?.left) {
+      nextLevel.push(right.left);
+    }
+
+    if (right?.right) {
+      nextLevel.push(right.right);
+    }
+
+    i++;
+  }
+
+  recurse(nextLevel);
 }

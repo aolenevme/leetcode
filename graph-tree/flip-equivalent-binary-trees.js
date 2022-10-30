@@ -39,14 +39,18 @@ Each tree will have unique node values in the range [0, 99].
  * @param {TreeNode} root2
  * @return {boolean}
  */
-var flipEquiv = function(root1, root2) {
-	if (root1 === root2) {
-		return true;
-	}
+var flipEquiv = function (root1, root2) {
+  if (root1 === root2) {
+    return true;
+  }
 
-	if (root1?.val !== root2?.val || !root1 || !root2) {
-		return false;
-	}
+  if (root1?.val !== root2?.val || !root1 || !root2) {
+    return false;
+  }
 
-	return flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right) || flipEquiv(root1.left, root2.right) && flipEquiv(root1.right, root2.left);
+  return (
+    (flipEquiv(root1.left, root2.left) &&
+      flipEquiv(root1.right, root2.right)) ||
+    (flipEquiv(root1.left, root2.right) && flipEquiv(root1.right, root2.left))
+  );
 };

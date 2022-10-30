@@ -46,58 +46,58 @@ Node.random is null or is pointing to some node in the linked list.
  * @param {Node} head
  * @return {Node}
  */
-var copyRandomList = function(head) {
-    chain(head);
-    connectRandoms(head);
-    
-    const newHead = head && head.next ? head.next : null;
-    
-    connectCopies(head, newHead);
-    
-    return newHead;
+var copyRandomList = function (head) {
+  chain(head);
+  connectRandoms(head);
+
+  const newHead = head && head.next ? head.next : null;
+
+  connectCopies(head, newHead);
+
+  return newHead;
 };
 
 function chain(node) {
-    if (!node) {
-        return;
-    }
-    
-    const newNode = new Node(node.val, node.next, node.random);
-    
-    node.next = newNode;
-    
-    chain(newNode.next);
+  if (!node) {
+    return;
+  }
+
+  const newNode = new Node(node.val, node.next, node.random);
+
+  node.next = newNode;
+
+  chain(newNode.next);
 }
 
 function connectRandoms(node) {
-    if (!node || !node.next) {
-        return;
-    }
-    
-    const random = node.next.random;
-    
-    if (random !== null) {
-        const nextAfterRandom = random.next;
-    
-        node.next.random = nextAfterRandom; 
-    }
-    
-    connectRandoms(node.next.next);
+  if (!node || !node.next) {
+    return;
+  }
+
+  const random = node.next.random;
+
+  if (random !== null) {
+    const nextAfterRandom = random.next;
+
+    node.next.random = nextAfterRandom;
+  }
+
+  connectRandoms(node.next.next);
 }
 
 function connectCopies(head, newHead) {
-    const first = head;
-    const second = newHead;
-    
-    if (!first && !second) {
-        return;
-    }
-    
-    const third = newHead?.next ?? null;
-    const fourth = newHead?.next?.next ?? null;
-    
-    first.next = third;
-    second.next = fourth;
-    
-    connectCopies(first.next, second.next);
+  const first = head;
+  const second = newHead;
+
+  if (!first && !second) {
+    return;
+  }
+
+  const third = newHead?.next ?? null;
+  const fourth = newHead?.next?.next ?? null;
+
+  first.next = third;
+  second.next = fourth;
+
+  connectCopies(first.next, second.next);
 }

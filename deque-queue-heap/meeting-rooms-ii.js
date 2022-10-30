@@ -20,20 +20,24 @@ Constraints:
  * @param {number[][]} intervals
  * @return {number}
  */
-var minMeetingRooms = function(intervals) {
-	const starts = [...intervals].sort(([firstStart], [secondStart]) => (firstStart - secondStart));
-    const ends = [...intervals].sort(([__, firstEnd], [_, secondEnd]) => (firstEnd - secondEnd));
+var minMeetingRooms = function (intervals) {
+  const starts = [...intervals].sort(
+    ([firstStart], [secondStart]) => firstStart - secondStart
+  );
+  const ends = [...intervals].sort(
+    ([__, firstEnd], [_, secondEnd]) => firstEnd - secondEnd
+  );
 
-	let rooms = 0;
-	let end = 0;
+  let rooms = 0;
+  let end = 0;
 
-	for (let i = 0; i < intervals.length; i++) {
-		if (starts[i][0] < ends[end][1]) {
-			rooms++;
-		} else {
-			end++;
-		}
-	}
+  for (let i = 0; i < intervals.length; i++) {
+    if (starts[i][0] < ends[end][1]) {
+      rooms++;
+    } else {
+      end++;
+    }
+  }
 
-	return rooms;
+  return rooms;
 };

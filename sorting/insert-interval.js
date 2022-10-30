@@ -30,89 +30,94 @@ newInterval.length == 2
  * @param {number[]} newInterval
  * @return {number[][]}
  */
-var insert = function(intervals, newInterval) {
-    const result = [];
-    
-    if (intervals.length === 0) {
+var insert = function (intervals, newInterval) {
+  const result = [];
+
+  if (intervals.length === 0) {
+    result.push(newInterval);
+
+    return result;
+  }
+
+  let isInserted = false;
+
+  for (let i = 0; i < intervals.length; i++) {
+    if (intervals.length < 2) {
+      const [from1] = intervals[i];
+      const [fromNewInterval] = newInterval;
+
+      if (from1 < fromNewInterval) {
+        result.push(intervals[i], newInterval);
+      } else {
+        result.push(newInterval, intervals[i]);
+      }
+
+      break;
+    }
+
+    const [from1] = intervals[i];
+    const [fromNewInterval] = newInterval;
+
+    if (i + 1 === intervals.length) {
+      result.push(intervals[i]);
+
+      if (!isInserted) {
         result.push(newInterval);
-        
-        return result;
+      }
+
+      break;
     }
-    
-    let isInserted = false;
-    
-    for (let i = 0; i < intervals.length; i++) {
-        if (intervals.length < 2) {
-            const [from1] = intervals[i];
-            const [fromNewInterval] = newInterval;
-            
-            if (from1 < fromNewInterval) {
-                result.push(intervals[i], newInterval);
-            } else {
-                result.push(newInterval, intervals[i]);
-            }
-            
-            break;
-        }
-        
-        const [from1] = intervals[i];
-        const [fromNewInterval] = newInterval;
-        
-        if (i + 1 === intervals.length) {
-            result.push(intervals[i]);
-            
-            if (!isInserted) {
-                result.push(newInterval);
-            }
-            
-            break;
-        }
-        
-        const [from2] = intervals[i + 1];
-        
-        if (!isInserted) {
-            if (from1 <= fromNewInterval && fromNewInterval <= from2) {
-                result.push(intervals[i], newInterval);
-                
-                isInserted = true;
-            } else if (fromNewInterval < from1) {
-                result.push(newInterval, intervals[i]);
-                
-                isInserted = true;
-            }
-            
-            if (isInserted) {              
-                continue;
-            }
-        }
-        
-        result.push(intervals[i]);
+
+    const [from2] = intervals[i + 1];
+
+    if (!isInserted) {
+      if (from1 <= fromNewInterval && fromNewInterval <= from2) {
+        result.push(intervals[i], newInterval);
+
+        isInserted = true;
+      } else if (fromNewInterval < from1) {
+        result.push(newInterval, intervals[i]);
+
+        isInserted = true;
+      }
+
+      if (isInserted) {
+        continue;
+      }
     }
-    
-    const merged = [];
-    
-    for (const interval of result) {
-        concat(merged, interval);
-    }
-    
-    return merged;
+
+    result.push(intervals[i]);
+  }
+
+  const merged = [];
+
+  for (const interval of result) {
+    concat(merged, interval);
+  }
+
+  return merged;
 };
 
 const isOverlapped = ([from1, to1], [from2, to2]) => {
-    return from2 <= to1 && from2 >= from1 || to2 <= to1 && from1 <= to2 || from1 <= from2 && to1 >= to2 || from1 >= from2 && to1 <= to2
-}
+  return (
+    (from2 <= to1 && from2 >= from1) ||
+    (to2 <= to1 && from1 <= to2) ||
+    (from1 <= from2 && to1 >= to2) ||
+    (from1 >= from2 && to1 <= to2)
+  );
+};
 
 const concat = (merged, interval) => {
-    const length = merged.length;
-    
-    if (length === 0 || !isOverlapped(merged[length - 1], interval)) {
-        merged.push(interval);
-        
-        return;
-    }
-    
-    const [from, to] = merged[length - 1];
-    const [intervalFrom, intervalTo] = interval;
-            
-    merged[length - 1] = [Math.min(from, intervalFrom), Math.max(to, intervalTo)];
-}
+  const length = merged.length;
+
+  if (length === 0 || !isOverlapped(merged[length - 1], interval)) {
+    merged.push(interval);
+
+    return;
+  }
+
+  const [from, to] = merged[length - 1];
+  const [intervalFrom, intervalTo] = interval;
+
+  merged[length - 1] = [Math.min(from, intervalFrom), Math.max(to, intervalTo)];
+};

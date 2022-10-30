@@ -34,73 +34,83 @@ nums is an ascending array that is possibly rotated.
  * @param {number} target
  * @return {number}
  */
-var search = function(nums, target) {
-    const pivot = lognPivot(nums, target, 0, nums.length - 1);
+var search = function (nums, target) {
+  const pivot = lognPivot(nums, target, 0, nums.length - 1);
 
-    if (nums[pivot] === target) {
-        return pivot;
-    }
+  if (nums[pivot] === target) {
+    return pivot;
+  }
 
-    const slicedAfter = nums.slice(pivot);
-    const slicedAfterIdx = lognFind(slicedAfter, target, 0, slicedAfter.length - 1);
+  const slicedAfter = nums.slice(pivot);
+  const slicedAfterIdx = lognFind(
+    slicedAfter,
+    target,
+    0,
+    slicedAfter.length - 1
+  );
 
-    if (slicedAfterIdx > -1) {
-        return slicedAfterIdx + pivot;
-    }
+  if (slicedAfterIdx > -1) {
+    return slicedAfterIdx + pivot;
+  }
 
-    const slicedBefore = nums.slice(0, pivot);
-    const slicedBeforeIdx = lognFind(slicedBefore, target, 0, slicedBefore.length - 1);
+  const slicedBefore = nums.slice(0, pivot);
+  const slicedBeforeIdx = lognFind(
+    slicedBefore,
+    target,
+    0,
+    slicedBefore.length - 1
+  );
 
-    if (slicedBeforeIdx > -1) {
-        return slicedBeforeIdx;
-    }
+  if (slicedBeforeIdx > -1) {
+    return slicedBeforeIdx;
+  }
 
-    return -1;
+  return -1;
 };
 
 const lognPivot = (nums, target, left, right) => {
-    const middle = Math.floor((left + right) / 2);
-    const after = middle + 1;
-    const before = middle - 1;
-    const value = nums[middle];
+  const middle = Math.floor((left + right) / 2);
+  const after = middle + 1;
+  const before = middle - 1;
+  const value = nums[middle];
 
-    if (value === target) {
-        return middle;
-    }
+  if (value === target) {
+    return middle;
+  }
 
-    if (before >= 0 && nums[before] > value) {
-        return middle;
-    }
+  if (before >= 0 && nums[before] > value) {
+    return middle;
+  }
 
-    if (left > right || right < left) {
-        return -1;
-    }
+  if (left > right || right < left) {
+    return -1;
+  }
 
-    const beforeIdx = lognPivot(nums, target, left, before);
-    const afterIdx = lognPivot(nums, target, after, right);
+  const beforeIdx = lognPivot(nums, target, left, before);
+  const afterIdx = lognPivot(nums, target, after, right);
 
-    if (beforeIdx !== -1 || afterIdx !== -1) {
-        return Math.max(beforeIdx, afterIdx);
-    }
+  if (beforeIdx !== -1 || afterIdx !== -1) {
+    return Math.max(beforeIdx, afterIdx);
+  }
 
-    return 0;
-}
+  return 0;
+};
 
 const lognFind = (nums, target, left, right) => {
-    const middle = Math.floor((left + right) / 2);
-    const value = nums[middle];
+  const middle = Math.floor((left + right) / 2);
+  const value = nums[middle];
 
-    if (target === value) {
-        return middle;
-    }
+  if (target === value) {
+    return middle;
+  }
 
-    if (left > right || right < left) {
-        return -1;
-    }
+  if (left > right || right < left) {
+    return -1;
+  }
 
-    if (value > target) {
-        return lognFind(nums, target, left, middle - 1);
-    }
+  if (value > target) {
+    return lognFind(nums, target, left, middle - 1);
+  }
 
-    return lognFind(nums, target, middle + 1, right);
-}
+  return lognFind(nums, target, middle + 1, right);
+};

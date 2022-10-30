@@ -33,35 +33,35 @@ Follow up: Could you do it in one pass?
  * @param {number} right
  * @return {ListNode}
  */
-var reverseBetween = function(head, left, right) {
-    let position = 0;
-    const nodes = [];
-    let node = head;
+var reverseBetween = function (head, left, right) {
+  let position = 0;
+  const nodes = [];
+  let node = head;
 
-    while (position < right && node) {
-        position++;
+  while (position < right && node) {
+    position++;
 
-        if (position >= left && position <= right) {
-            nodes.push(node);
-        }
-
-        node = node?.next;
+    if (position >= left && position <= right) {
+      nodes.push(node);
     }
 
-    let i = 0;
-    let j = nodes.length - 1;
+    node = node?.next;
+  }
 
-    while (i <= j) {
-        const leftNode = nodes[i];
-        const rightNode = nodes[j];
+  let i = 0;
+  let j = nodes.length - 1;
 
-        const tempVal = rightNode.val;
-        rightNode.val = leftNode.val;
-        leftNode.val = tempVal;
+  while (i <= j) {
+    const leftNode = nodes[i];
+    const rightNode = nodes[j];
 
-        i++;
-        j--;
-    }
+    const tempVal = rightNode.val;
+    rightNode.val = leftNode.val;
+    leftNode.val = tempVal;
 
-    return head;
+    i++;
+    j--;
+  }
+
+  return head;
 };

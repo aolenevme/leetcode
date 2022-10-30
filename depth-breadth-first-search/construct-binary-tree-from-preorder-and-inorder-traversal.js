@@ -34,30 +34,30 @@ inorder is guaranteed to be the inorder traversal of the tree.
  * @param {number[]} inorder
  * @return {TreeNode}
  */
-var buildTree = function(preorder, inorder) {
-    const hash = {};
-    
-    let preorderIdx = 0;
-    
-    inorder.forEach((value, index) => {
-        hash[value] = index;
-    });
-    
-    function recurse(left, right) {
-        if (left > right) {
-            return null;
-        }
-        
-        const value = preorder[preorderIdx]; 
-        const root = new TreeNode(value);
-        
-        preorderIdx++;
-        
-        root.left = recurse(left, hash[value] - 1);
-        root.right = recurse(hash[value] + 1, right);
-        
-        return root;
+var buildTree = function (preorder, inorder) {
+  const hash = {};
+
+  let preorderIdx = 0;
+
+  inorder.forEach((value, index) => {
+    hash[value] = index;
+  });
+
+  function recurse(left, right) {
+    if (left > right) {
+      return null;
     }
-    
-    return recurse(0, preorder.length - 1);
+
+    const value = preorder[preorderIdx];
+    const root = new TreeNode(value);
+
+    preorderIdx++;
+
+    root.left = recurse(left, hash[value] - 1);
+    root.right = recurse(hash[value] + 1, right);
+
+    return root;
+  }
+
+  return recurse(0, preorder.length - 1);
 };

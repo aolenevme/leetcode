@@ -21,35 +21,35 @@ Constraints:
  * @param {number} numRows
  * @return {number[][]}
  */
-var generate = function(numRows) {
-    const result = [];
+var generate = function (numRows) {
+  const result = [];
 
-    for (let i = 0; i < numRows; i++) {
-        if (i === 0) {
-            result.push([1]);
+  for (let i = 0; i < numRows; i++) {
+    if (i === 0) {
+      result.push([1]);
 
-            continue;
-        }
-
-        if (i === 1) {
-            result.push([1, 1]);
-
-            continue;
-        }
-
-        const row = [];
-        for (let j = 0; j <= i; j++) {
-            if (j === 0 || j === i) {
-                row.push(1);
-
-                continue;
-            }
-
-            row.push(result[i - 1][j] + result[i - 1][j - 1]);
-        }
-
-        result.push(row);
+      continue;
     }
 
-    return result;
+    if (i === 1) {
+      result.push([1, 1]);
+
+      continue;
+    }
+
+    const row = [];
+    for (let j = 0; j <= i; j++) {
+      if (j === 0 || j === i) {
+        row.push(1);
+
+        continue;
+      }
+
+      row.push(result[i - 1][j] + result[i - 1][j - 1]);
+    }
+
+    result.push(row);
+  }
+
+  return result;
 };

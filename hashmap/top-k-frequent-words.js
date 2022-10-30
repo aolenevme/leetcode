@@ -30,31 +30,31 @@ Follow-up: Could you solve it in O(n log(k)) time and O(n) extra space?
  * @param {number} k
  * @return {string[]}
  */
-var topKFrequent = function(words, k) {
-        const map = new Map();
+var topKFrequent = function (words, k) {
+  const map = new Map();
 
-        for (const word of words) {
-                if (map.has(word)) {
-                        const counter = map.get(word);
+  for (const word of words) {
+    if (map.has(word)) {
+      const counter = map.get(word);
 
-                        map.set(word, counter + 1);
-                } else {
-                        map.set(word, 1);
-                }
-        }
+      map.set(word, counter + 1);
+    } else {
+      map.set(word, 1);
+    }
+  }
 
-        const array = Array.from(map);
-        const sorted = array.sort(([word1, counter1], [word2, counter2]) => {
-                const diff = counter2 - counter1;
+  const array = Array.from(map);
+  const sorted = array.sort(([word1, counter1], [word2, counter2]) => {
+    const diff = counter2 - counter1;
 
-                if (diff === 0) {
-                        return word1 <= word2 ? -1 : 1;
-                }
+    if (diff === 0) {
+      return word1 <= word2 ? -1 : 1;
+    }
 
-                return diff;
-        });
+    return diff;
+  });
 
-        const result = sorted.slice(0, k).map(([word]) => word);
+  const result = sorted.slice(0, k).map(([word]) => word);
 
-        return result;
+  return result;
 };

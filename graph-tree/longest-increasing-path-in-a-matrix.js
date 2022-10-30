@@ -30,54 +30,54 @@ n == matrix[i].length
  * @param {number[][]} matrix
  * @return {number}
  */
-var longestIncreasingPath = function(matrix) {
-    let max = 1;
-    
-    const map = new Map();
-    
-    for (let c = 0; c < matrix.length; c++) {
-        for (let r = 0; r < matrix[0].length; r++) {
-            const nextMax = recurse(c, r, matrix, map);
-                
-            max = Math.max(max, nextMax);
-        }
+var longestIncreasingPath = function (matrix) {
+  let max = 1;
+
+  const map = new Map();
+
+  for (let c = 0; c < matrix.length; c++) {
+    for (let r = 0; r < matrix[0].length; r++) {
+      const nextMax = recurse(c, r, matrix, map);
+
+      max = Math.max(max, nextMax);
     }
-    
-    return max;
+  }
+
+  return max;
 };
 
 const recurse = (c, r, matrix, map) => {
-    const cacheId = `${c},${r}`;
-    if (map.has(cacheId)) {
-        return map.get(cacheId);
-    }
-    
-    const current = matrix[c][r];
-    
-    let leftMax = 1;
-    let rightMax = 1;
-    let bottomMax = 1;
-    let topMax = 1;
-    
-    if (c - 1 >= 0 && matrix[c - 1][r] > current) {
-        leftMax += recurse(c - 1, r, matrix, map);
-    }
-            
-    if (c + 1 < matrix.length && matrix[c + 1][r] > current) {
-        rightMax += recurse(c + 1, r, matrix, map);
-    }
-            
-    if (r - 1 >= 0 && matrix[c][r - 1] > current) {
-        bottomMax += recurse(c, r - 1, matrix, map);
-    }
-            
-    if (r + 1 < matrix[0].length && matrix[c][r + 1] > current) {
-        topMax += recurse(c, r + 1, matrix, map);
-    }
-    
-    const result = Math.max(leftMax, rightMax, bottomMax, topMax);
-    
-    map.set(cacheId, result);
-    
-    return result;
+  const cacheId = `${c},${r}`;
+  if (map.has(cacheId)) {
+    return map.get(cacheId);
+  }
+
+  const current = matrix[c][r];
+
+  let leftMax = 1;
+  let rightMax = 1;
+  let bottomMax = 1;
+  let topMax = 1;
+
+  if (c - 1 >= 0 && matrix[c - 1][r] > current) {
+    leftMax += recurse(c - 1, r, matrix, map);
+  }
+
+  if (c + 1 < matrix.length && matrix[c + 1][r] > current) {
+    rightMax += recurse(c + 1, r, matrix, map);
+  }
+
+  if (r - 1 >= 0 && matrix[c][r - 1] > current) {
+    bottomMax += recurse(c, r - 1, matrix, map);
+  }
+
+  if (r + 1 < matrix[0].length && matrix[c][r + 1] > current) {
+    topMax += recurse(c, r + 1, matrix, map);
+  }
+
+  const result = Math.max(leftMax, rightMax, bottomMax, topMax);
+
+  map.set(cacheId, result);
+
+  return result;
 };

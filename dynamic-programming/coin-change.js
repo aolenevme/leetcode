@@ -31,41 +31,41 @@ Constraints:
  * @param {number} amount
  * @return {number}
  */
-var coinChange = function(coins, amount) {
-    if (amount < 1) {
-       return 0; 
-    }
-    
-    const cache = new Map();
-    const result = recurse(coins, amount, cache);
-    
-    return result;
+var coinChange = function (coins, amount) {
+  if (amount < 1) {
+    return 0;
+  }
+
+  const cache = new Map();
+  const result = recurse(coins, amount, cache);
+
+  return result;
 };
 
 const recurse = (coins, amount, cache) => {
-    if (amount < 0) {
-        return -1;
-    }
-    
-    if (amount === 0) {
-        return 0;
-    }
-    
-    if (cache.has(amount)) {
-        return cache.get(amount);
-    }
-    
-    let min = Infinity;
-    
-    for (const coin of coins) {
-        const result = recurse(coins, amount - coin, cache);
-        
-        if (result >= 0 && result < min) {
-            min = 1 + result;
-        }
-    }
-    
-    cache.set(amount, min === Infinity ? -1 : min);
-    
+  if (amount < 0) {
+    return -1;
+  }
+
+  if (amount === 0) {
+    return 0;
+  }
+
+  if (cache.has(amount)) {
     return cache.get(amount);
+  }
+
+  let min = Infinity;
+
+  for (const coin of coins) {
+    const result = recurse(coins, amount - coin, cache);
+
+    if (result >= 0 && result < min) {
+      min = 1 + result;
+    }
+  }
+
+  cache.set(amount, min === Infinity ? -1 : min);
+
+  return cache.get(amount);
 };

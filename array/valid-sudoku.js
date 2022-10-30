@@ -48,88 +48,112 @@ board[i][j] is a digit 1-9 or '.'.
  * @param {character[][]} board
  * @return {boolean}
  */
-var isValidSudoku = function(board) {
-    const length = 9;
-    let result = true;
-    
-    rows:
-        for (let i = 0; i < length; i++) {
-            let numbers = new Set(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+var isValidSudoku = function (board) {
+  const length = 9;
+  let result = true;
 
-            for (let j = 0; j < length; j++) {
-                const char = board[i][j];
+  rows: for (let i = 0; i < length; i++) {
+    let numbers = new Set(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
 
-                if (char === ".") {
-                    continue;
-                }
-                    
-                if (!numbers.delete(char)) {
-                    result = false;
-                    
-                    break rows;
-                }
-            }
-        }
-    
-    if (!result) {
-        return result;
+    for (let j = 0; j < length; j++) {
+      const char = board[i][j];
+
+      if (char === ".") {
+        continue;
+      }
+
+      if (!numbers.delete(char)) {
+        result = false;
+
+        break rows;
+      }
     }
-    
-    columns:
-        for (let i = 0; i < length; i++) {
-            let numbers = new Set(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+  }
 
-            for (let j = 0; j < length; j++) {
-                const char = board[j][i];
-
-                if (char === ".") {
-                    continue;
-                }
-                    
-                if (!numbers.delete(char)) {
-                    result = false;
-                    
-                    break columns;
-                }
-            }
-        }
-    
-    if (!result) {
-        return result;
-    }
-    
-    const coordinates = [
-        [[0, 3], [0, 3]],
-        [[0, 3], [3, 6]],
-        [[0, 3], [6, 9]],
-        [[3, 6], [0, 3]],
-        [[3, 6], [3, 6]],
-        [[3, 6], [6, 9]],
-        [[6, 9], [0, 3]],
-        [[6, 9], [3, 6]],
-        [[6, 9], [6, 9]],
-    ];
-    
-    squares:
-        for (const square of coordinates) {
-            let numbers = new Set(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
-
-            for (let i = square[0][0]; i < square[0][1]; i++) {
-                for (let j = square[1][0]; j < square[1][1]; j++) {
-                    const char = board[j][i];
-
-                    if (char === ".") {
-                        continue;
-                    }
-
-                    if (!numbers.delete(char)) {
-                        result = false;
-
-                        break squares;
-                    }
-                }
-            }
-        }
-    
+  if (!result) {
     return result;
+  }
+
+  columns: for (let i = 0; i < length; i++) {
+    let numbers = new Set(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+
+    for (let j = 0; j < length; j++) {
+      const char = board[j][i];
+
+      if (char === ".") {
+        continue;
+      }
+
+      if (!numbers.delete(char)) {
+        result = false;
+
+        break columns;
+      }
+    }
+  }
+
+  if (!result) {
+    return result;
+  }
+
+  const coordinates = [
+    [
+      [0, 3],
+      [0, 3],
+    ],
+    [
+      [0, 3],
+      [3, 6],
+    ],
+    [
+      [0, 3],
+      [6, 9],
+    ],
+    [
+      [3, 6],
+      [0, 3],
+    ],
+    [
+      [3, 6],
+      [3, 6],
+    ],
+    [
+      [3, 6],
+      [6, 9],
+    ],
+    [
+      [6, 9],
+      [0, 3],
+    ],
+    [
+      [6, 9],
+      [3, 6],
+    ],
+    [
+      [6, 9],
+      [6, 9],
+    ],
+  ];
+
+  squares: for (const square of coordinates) {
+    let numbers = new Set(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+
+    for (let i = square[0][0]; i < square[0][1]; i++) {
+      for (let j = square[1][0]; j < square[1][1]; j++) {
+        const char = board[j][i];
+
+        if (char === ".") {
+          continue;
+        }
+
+        if (!numbers.delete(char)) {
+          result = false;
+
+          break squares;
+        }
+      }
+    }
+  }
+
+  return result;
 };

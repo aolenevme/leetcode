@@ -31,36 +31,36 @@ All the pairs prerequisites[i] are unique.
  * @param {number[][]} prerequisites
  * @return {boolean}
  */
-var canFinish = function(numCourses, prerequisites) {
-	const order = [];
-	const queue = [];
-	const graph = new Map();
-	const indegree = Array(numCourses).fill(0);
+var canFinish = function (numCourses, prerequisites) {
+  const order = [];
+  const queue = [];
+  const graph = new Map();
+  const indegree = Array(numCourses).fill(0);
 
-	for (const [e, v] of prerequisites) {
-		if (graph.has(v)) {
-			graph.get(v).push(e);
-		} else {
-			graph.set(v, [e]);
-		}
+  for (const [e, v] of prerequisites) {
+    if (graph.has(v)) {
+      graph.get(v).push(e);
+    } else {
+      graph.set(v, [e]);
+    }
 
-		indegree[e]++;
-	}
+    indegree[e]++;
+  }
 
-	for (let i = 0; i < indegree.length; i++) {
-		if (indegree[i] === 0) queue.push(i);
-	}
+  for (let i = 0; i < indegree.length; i++) {
+    if (indegree[i] === 0) queue.push(i);
+  }
 
-	while (queue.length) {
-		const v = queue.shift();
-		if (graph.has(v)) {
-			for (const e of graph.get(v)) {
-				indegree[e]--;
-				if (indegree[e] === 0) queue.push(e);
-			}
-		}
-		order.push(v);
-	}
+  while (queue.length) {
+    const v = queue.shift();
+    if (graph.has(v)) {
+      for (const e of graph.get(v)) {
+        indegree[e]--;
+        if (indegree[e] === 0) queue.push(e);
+      }
+    }
+    order.push(v);
+  }
 
-	return numCourses === order.length;
+  return numCourses === order.length;
 };

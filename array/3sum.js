@@ -32,46 +32,45 @@ Constraints:
 */
 
 function threeSum(nums) {
-	const result = [];
+  const result = [];
 
-	nums.sort((a, b) => a - b);
+  nums.sort((a, b) => a - b);
 
-	for (let start = 0; start < nums.length - 2; start++) {
-		if (nums[start] > 0) {
-			break;
-		}
+  for (let start = 0; start < nums.length - 2; start++) {
+    if (nums[start] > 0) {
+      break;
+    }
 
-		if (nums[start] === nums[start - 1]) {
-			continue;
-		}
+    if (nums[start] === nums[start - 1]) {
+      continue;
+    }
 
+    let middle = start + 1;
+    let end = nums.length - 1;
 
-		let middle = start + 1;
-		let end = nums.length - 1;
+    while (middle < end) {
+      const sum = nums[start] + nums[middle] + nums[end];
 
-		while (middle < end) {
-			const sum = nums[start] + nums[middle] + nums[end];
+      if (sum === 0) {
+        result.push([nums[start], nums[middle], nums[end]]);
 
-			if (sum === 0) {
-				result.push([nums[start], nums[middle], nums[end]])
+        while (nums[middle] === nums[middle + 1]) {
+          middle++;
+        }
 
-				while (nums[middle] === nums[middle + 1]) {
-					middle++;
-				}
+        while (nums[end] === nums[end - 1]) {
+          end--;
+        }
 
-				while (nums[end] === nums[end - 1]) {
-					end--;
-				}
+        middle++;
+        end--;
+      } else if (sum < 0) {
+        middle++;
+      } else {
+        end--;
+      }
+    }
+  }
 
-				middle++;
-				end--;
-			} else if (sum < 0) {
-				middle++;
-			} else {
-				end--;
-			}
-		}
-	}
-
-	return result;
-};
+  return result;
+}

@@ -28,7 +28,7 @@ The number of nodes in the tree is in the range [1, 1000].
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isSymmetric = function(root) {
+var isSymmetric = function (root) {
   return recurse(root.left, root.right);
 };
 
@@ -36,6 +36,10 @@ function recurse(first, second) {
   if (!first && !second) {
     return true;
   }
-    
-  return first?.val === second?.val && recurse(first.right, second.left) && recurse(first.left, second.right);
+
+  return (
+    first?.val === second?.val &&
+    recurse(first.right, second.left) &&
+    recurse(first.left, second.right)
+  );
 }

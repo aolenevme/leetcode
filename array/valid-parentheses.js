@@ -30,24 +30,24 @@ s consists of parentheses only '()[]{}'.
  * @param {string} s
  * @return {boolean}
  */
-var isValid = function(s) {
-   const queue = [];
-    
-    for (const char of s) {
-        const length = queue.length;
-        
-        if (!length) {
-            queue.push(char);
-        } else if (char === ")" && queue[length - 1] === "(") {
-            queue.pop();
-        } else if (char === "}" && queue[length - 1] === "{") {
-            queue.pop();
-        } else if (char === "]" && queue[length - 1] === "[") {
-            queue.pop();
-        } else {
-            queue.push(char);
-        }
+var isValid = function (s) {
+  const queue = [];
+
+  for (const char of s) {
+    const length = queue.length;
+
+    if (!length) {
+      queue.push(char);
+    } else if (char === ")" && queue[length - 1] === "(") {
+      queue.pop();
+    } else if (char === "}" && queue[length - 1] === "{") {
+      queue.pop();
+    } else if (char === "]" && queue[length - 1] === "[") {
+      queue.pop();
+    } else {
+      queue.push(char);
     }
-    
-    return !queue.length;
+  }
+
+  return !queue.length;
 };

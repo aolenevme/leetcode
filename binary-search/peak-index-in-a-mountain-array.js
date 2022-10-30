@@ -33,23 +33,23 @@ arr is guaranteed to be a mountain array.
  * @param {number[]} arr
  * @return {number}
  */
-var peakIndexInMountainArray = function(arr) {
-    return binary(arr, 0, arr.length - 1);
+var peakIndexInMountainArray = function (arr) {
+  return binary(arr, 0, arr.length - 1);
 };
 
 const binary = (arr, li, ri) => {
-    const mi = Math.floor((li + ri) / 2);
-    const middle = arr[mi];
-    const left = arr[mi - 1];
-    const right = arr[mi + 1];
-        
-    if ((middle > left && middle > right) || (middle < left && middle < right)) {
-        return mi;
-    }
-    
-    if (middle < right) {
-        return binary(arr, mi + 1, ri);
-    }
-    
-    return binary(arr, li, mi);
+  const mi = Math.floor((li + ri) / 2);
+  const middle = arr[mi];
+  const left = arr[mi - 1];
+  const right = arr[mi + 1];
+
+  if ((middle > left && middle > right) || (middle < left && middle < right)) {
+    return mi;
+  }
+
+  if (middle < right) {
+    return binary(arr, mi + 1, ri);
+  }
+
+  return binary(arr, li, mi);
 };

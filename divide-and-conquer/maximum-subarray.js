@@ -29,16 +29,16 @@ Follow up: If you have figured out the O(n) solution, try coding another solutio
  * @param {number[]} nums
  * @return {number}
  */
-var maxSubArray = function(nums) {
-    let currentSum = nums[0];
-    let maxSum = nums[0];
-    
-    for (let i = 1; i < nums.length; i++) {
-        const num = nums[i];
-        
-        currentSum = Math.max(num, currentSum + num);
-        maxSum = Math.max(maxSum, currentSum);
-    }
-    
-    return maxSum;
+var maxSubArray = function (nums) {
+  let currentSum = nums[0];
+  let maxSum = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    const num = nums[i];
+
+    currentSum = Math.max(num, currentSum + num);
+    maxSum = Math.max(maxSum, currentSum);
+  }
+
+  return maxSum;
 };

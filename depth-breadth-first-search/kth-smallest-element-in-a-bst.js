@@ -22,34 +22,38 @@
 /**
  * Definition for a binary tree node.
  */
- function TreeNode(val, left, right) {
-   this.val = (val===undefined ? 0 : val);
-   this.left = (left===undefined ? null : left);
-   this.right = (right===undefined ? null : right);
- }
- 
- const node2 = new TreeNode(2);
- const node1 = new TreeNode(1, undefined, node2);
- const node4 = new TreeNode(4);
- const node3 = new TreeNode(3, node1, node4);
- 
+function TreeNode(val, left, right) {
+  this.val = val === undefined ? 0 : val;
+  this.left = left === undefined ? null : left;
+  this.right = right === undefined ? null : right;
+}
+
+const node2 = new TreeNode(2);
+const node1 = new TreeNode(1, undefined, node2);
+const node4 = new TreeNode(4);
+const node3 = new TreeNode(3, node1, node4);
+
 /**
  * @param {TreeNode} root
  * @param {number} k
  * @return {number}
  */
-var kthSmallest = function(root, k) {
-    const sortedArray = inOrderTraversal(root);
-    
-    return sortedArray[k - 1];
+var kthSmallest = function (root, k) {
+  const sortedArray = inOrderTraversal(root);
+
+  return sortedArray[k - 1];
 };
 
 function inOrderTraversal(node) {
   if (!node) {
     return [];
   }
-  
-  return [...inOrderTraversal(node.left), node.val, ...inOrderTraversal(node.right)];
+
+  return [
+    ...inOrderTraversal(node.left),
+    node.val,
+    ...inOrderTraversal(node.right),
+  ];
 }
 
 console.log(kthSmallest(node3, 4));

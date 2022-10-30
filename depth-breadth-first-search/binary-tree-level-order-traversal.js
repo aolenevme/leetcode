@@ -35,7 +35,7 @@ The number of nodes in the tree is in the range [0, 2000].
  * @return {number[][]}
  */
 
-var levelOrder = function(root) {
+var levelOrder = function (root) {
   return recurse(root, [], 0);
 };
 
@@ -43,17 +43,17 @@ function recurse(node, answer, depth) {
   if (!node) {
     return [];
   }
-    
+
   if (!answer[depth]) {
     answer[depth] = [];
   }
-    
+
   answer[depth].push(node.val);
-    
+
   const nextDepth = depth + 1;
-    
+
   recurse(node.left, answer, nextDepth);
   recurse(node.right, answer, nextDepth);
-    
+
   return answer;
 }

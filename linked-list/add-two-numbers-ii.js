@@ -37,48 +37,48 @@ Follow up: Could you solve it without reversing the input lists?
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function(l1, l2) {
-    const nodes1 = [];
-    const nodes2 = [];
+var addTwoNumbers = function (l1, l2) {
+  const nodes1 = [];
+  const nodes2 = [];
 
-    let node1 = l1;
+  let node1 = l1;
 
-    while (node1) {
-        nodes1.unshift(node1);
+  while (node1) {
+    nodes1.unshift(node1);
 
-        node1 = node1.next;
-    }
+    node1 = node1.next;
+  }
 
-    let node2 = l2;
+  let node2 = l2;
 
-    while (node2) {
-        nodes2.unshift(node2);
+  while (node2) {
+    nodes2.unshift(node2);
 
-        node2 = node2.next;
-    }
+    node2 = node2.next;
+  }
 
-    const modified = nodes1.length > nodes2.length ? nodes1 : nodes2;
+  const modified = nodes1.length > nodes2.length ? nodes1 : nodes2;
 
-    return recurse(nodes1, nodes2, modified, 0, 0);
+  return recurse(nodes1, nodes2, modified, 0, 0);
 };
 
 const recurse = (nodes1, nodes2, modified, i, prev) => {
-    if (i === modified.length) {
-        if (prev > 0) {
-            return new ListNode(prev, modified[i - 1]);
-        }
-
-        return modified[i - 1];
+  if (i === modified.length) {
+    if (prev > 0) {
+      return new ListNode(prev, modified[i - 1]);
     }
 
-    const first = i >= nodes1.length ? 0 : nodes1[i].val;
-    const second = i >= nodes2.length ? 0 : nodes2[i].val;
+    return modified[i - 1];
+  }
 
-    const sum = first + second + prev;
-    const rest = sum % 10;
-    const nextPrev = Math.floor(sum / 10);
+  const first = i >= nodes1.length ? 0 : nodes1[i].val;
+  const second = i >= nodes2.length ? 0 : nodes2[i].val;
 
-    modified[i].val = rest;
+  const sum = first + second + prev;
+  const rest = sum % 10;
+  const nextPrev = Math.floor(sum / 10);
 
-    return recurse(nodes1, nodes2, modified, i + 1, nextPrev);
-}
+  modified[i].val = rest;
+
+  return recurse(nodes1, nodes2, modified, i + 1, nextPrev);
+};

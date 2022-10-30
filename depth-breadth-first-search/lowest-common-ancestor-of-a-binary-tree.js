@@ -40,27 +40,27 @@ p and q will exist in the tree.
  * @param {TreeNode} q
  * @return {TreeNode}
  */
-var lowestCommonAncestor = function(root, p, q) {
-    let result = root;
-    
-    function recurse(node) {
-        if (!node) {
-            return false;
-        }
-        
-        const isMatched = node === p || node === q;
-        
-        const hasInLeft = recurse(node.left);
-        const hasInRight = recurse(node.right);
-        
-        if ((hasInLeft || hasInRight) && isMatched || hasInLeft && hasInRight) {
-            result = node;
-        }
-        
-        return isMatched || hasInLeft || hasInRight;
+var lowestCommonAncestor = function (root, p, q) {
+  let result = root;
+
+  function recurse(node) {
+    if (!node) {
+      return false;
     }
-    
-    recurse(root);
-    
-    return result;
+
+    const isMatched = node === p || node === q;
+
+    const hasInLeft = recurse(node.left);
+    const hasInRight = recurse(node.right);
+
+    if (((hasInLeft || hasInRight) && isMatched) || (hasInLeft && hasInRight)) {
+      result = node;
+    }
+
+    return isMatched || hasInLeft || hasInRight;
+  }
+
+  recurse(root);
+
+  return result;
 };

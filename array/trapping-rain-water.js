@@ -22,50 +22,50 @@ n == height.length
  * @param {number[]} height
  * @return {number}
  */
-var trap = function(height) {
-    let maxIdx = 0;
-    max = height[maxIdx];
+var trap = function (height) {
+  let maxIdx = 0;
+  max = height[maxIdx];
 
-    for (let i = 0; i < height.length; i++) {
-        const current = height[i];
+  for (let i = 0; i < height.length; i++) {
+    const current = height[i];
 
-        if (current > max) {
-            maxIdx = i;
-            max = current;
-        }
+    if (current > max) {
+      maxIdx = i;
+      max = current;
+    }
+  }
+
+  let sum = 0;
+  let left = 0;
+  max = 0;
+
+  while (left < maxIdx) {
+    const current = height[left];
+    const addition = max - current;
+
+    if (addition > 0) {
+      sum += addition;
+    } else {
+      max = current;
     }
 
-    let sum = 0;
-    let left = 0;
-    max = 0;
+    left++;
+  }
 
-    while (left < maxIdx) {
-        const current = height[left];
-        const addition = max - current;
+  let right = height.length - 1;
+  max = 0;
+  while (maxIdx < right) {
+    const current = height[right];
+    const addition = max - current;
 
-        if (addition > 0) {
-            sum += addition;
-        } else {
-            max = current;
-        }
-
-        left++;
+    if (addition > 0) {
+      sum += addition;
+    } else {
+      max = current;
     }
 
-    let right = height.length - 1;
-    max = 0;
-    while (maxIdx < right) {
-        const current = height[right];
-        const addition = max - current;
+    right--;
+  }
 
-        if (addition > 0) {
-            sum += addition;
-        } else {
-            max = current;
-        }
-        
-        right--;
-    }
-
-    return sum;
+  return sum;
 };

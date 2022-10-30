@@ -31,46 +31,46 @@ nums is a non-decreasing array.
  * @param {number} target
  * @return {number[]}
  */
-var searchRange = function(nums, target) {
-    let left = 0;
-    let right = nums.length - 1;
-    
-    const result = [-1, -1];
-    
-    recurse(left, right, nums, target, result);
-    
-    return result;
+var searchRange = function (nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+
+  const result = [-1, -1];
+
+  recurse(left, right, nums, target, result);
+
+  return result;
 };
 
 const recurse = (left, right, nums, target, result) => {
-    if (left > right) {
-        return;
-    }
-    
-    const middle = Math.floor((left + right) / 2);
-    const number = nums[middle];
-    
-    if (number === target) {
-        add(middle, result);
-    }
-    
-    recurse(left, middle - 1, nums, target, result);
-    recurse(middle + 1, right, nums, target, result);
+  if (left > right) {
+    return;
+  }
+
+  const middle = Math.floor((left + right) / 2);
+  const number = nums[middle];
+
+  if (number === target) {
+    add(middle, result);
+  }
+
+  recurse(left, middle - 1, nums, target, result);
+  recurse(middle + 1, right, nums, target, result);
 };
 
 const add = (idx, result) => {
-    const [min, max] = result;
-    
-    if (min === -1 && max === -1) {
-        result[0] = idx;
-        result[1] = idx;
-        
-        return;
-    }
-    
-    if (idx < min) {
-        result[0] = idx;
-    } else if (idx > max) {
-        result[1] = idx;
-    }
+  const [min, max] = result;
+
+  if (min === -1 && max === -1) {
+    result[0] = idx;
+    result[1] = idx;
+
+    return;
+  }
+
+  if (idx < min) {
+    result[0] = idx;
+  } else if (idx > max) {
+    result[1] = idx;
+  }
 };

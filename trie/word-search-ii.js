@@ -33,63 +33,68 @@ const findWords = (board, words) => {
   let res = [];
 
   const root = trie(words);
-    
+
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[0].length; j++) {
       search(root, board, res, i, j);
     }
   }
-    
+
   return res;
 };
 
 const trie = (words) => {
-    const root = {};
-      
-    for (const word of words) {
-      let node = root;
-        
-      for (const c of word) {
-        if (!node[c]) {
-            node[c] = {};
-        }
-          
-        node = node[c];
+  const root = {};
+
+  for (const word of words) {
+    let node = root;
+
+    for (const c of word) {
+      if (!node[c]) {
+        node[c] = {};
       }
-        
-      node.word = word;
+
+      node = node[c];
     }
-      
-    return root;
+
+    node.word = word;
+  }
+
+  return root;
 };
 
 const search = (node, board, res, x, y) => {
-    const dirs = [[-1, 0], [0, 1], [1, 0], [0, -1]];
-    
-    if (node.word != null) {
-      res.push(node.word);
-        
-      node.word = null;
-    }
+  const dirs = [
+    [-1, 0],
+    [0, 1],
+    [1, 0],
+    [0, -1],
+  ];
 
-    if (x < 0 || x >= board.length || y < 0 || y >= board[0].length) {
-       return; 
-    }
-      
-    if (node[board[x][y]] == null) {
-        return;
-    }
+  if (node.word != null) {
+    res.push(node.word);
 
-    const c = board[x][y];
-      
-    board[x][y] = '#';
-      
-    for (const [dx, dy] of dirs) {
-      const i = x + dx;
-      const j = y + dy;
-        
-      search(node[c], board, res, i, j);
-    }
-      
-    board[x][y] = c;
+    node.word = null;
+  }
+
+  if (x < 0 || x >= board.length || y < 0 || y >= board[0].length) {
+    return;
+  }
+
+  if (node[board[x][y]] == null) {
+    return;
+  }
+
+  const c = board[x][y];
+
+  board[x][y] = "#";
+
+  for (const [dx, dy] of dirs) {
+    const i = x + dx;
+    const j = y + dy;
+
+    search(node[c], board, res, i, j);
+  }
+
+  board[x][y] = c;
 };

@@ -10,7 +10,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var preorderTraversal = function(root) {
+var preorderTraversal = function (root) {
   return iterate(root);
 };
 
