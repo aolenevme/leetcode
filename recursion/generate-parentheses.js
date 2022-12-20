@@ -19,27 +19,27 @@ Constraints:
  * @param {number} n
  * @return {string[]}
  */
-var generateParenthesis = function(n) {
-    const result = [];
+var generateParenthesis = function (n) {
+  const result = [];
 
-    recurse(['('], n * 2, 1, result);
+  recurse(["("], n * 2, 1, result);
 
-    return result;
+  return result;
 };
 
 const recurse = (array, length, counter, result) => {
-    if (counter < 0) {
-        return;
-    }
-    
-    if (length === array.length) {
-        if (counter === 0) {
-            result.push(array.join(''));
-        }
+  if (counter < 0) {
+    return;
+  }
 
-        return;
+  if (length === array.length) {
+    if (counter === 0) {
+      result.push(array.join(""));
     }
 
-    recurse([...array, '('], length, counter + 1, result);
-    recurse([...array, ')'], length, counter - 1, result);
-}
+    return;
+  }
+
+  recurse([...array, "("], length, counter + 1, result);
+  recurse([...array, ")"], length, counter - 1, result);
+};
