@@ -39,6 +39,7 @@ var RandomizedSet = function () {
 RandomizedSet.prototype.insert = function (val) {
   if (!this.sets.has(val)) {
     this.sets.add(val);
+
     return true;
   }
 
@@ -48,6 +49,7 @@ RandomizedSet.prototype.insert = function (val) {
 RandomizedSet.prototype.remove = function (val) {
   if (this.sets.has(val)) {
     this.sets.delete(val);
+
     return true;
   }
 
@@ -55,15 +57,19 @@ RandomizedSet.prototype.remove = function (val) {
 };
 
 RandomizedSet.prototype.getRandom = function () {
-  let random = Math.floor(Math.random() * this.sets.size),
-    result = 0;
-  for (let sets of this.sets) {
+  const random = Math.floor(Math.random() * this.sets.size);
+  let result = 0;
+
+  for (const value of this.sets) {
     if (result === random) {
-      result = sets;
+      result = value;
+
       break;
     }
+
     result++;
   }
+
   return result;
 };
 
