@@ -24,19 +24,19 @@ All the characters of jewels are unique.
  * @param {string} stones
  * @return {number}
  */
-var numJewelsInStones = function(jewels, stones) {
-    const map = {};
+var numJewelsInStones = function (jewels, stones) {
+  const map = {};
 
-    for (const jewel of jewels.split('')) {
-        map[jewel] = jewel;
+  for (const jewel of jewels.split("")) {
+    map[jewel] = jewel;
+  }
+
+  let counter = 0;
+  for (const stone of stones.split("")) {
+    if (map[stone]) {
+      counter++;
     }
+  }
 
-    let counter = 0;
-    for (const stone of stones.split('')) {
-        if (map[stone]) {
-            counter++;
-        }
-    }
-
-    return counter;
+  return counter;
 };
