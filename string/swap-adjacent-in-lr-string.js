@@ -28,39 +28,39 @@ Both start and end will only consist of characters in 'L', 'R', and 'X'.
  * @param {string} end
  * @return {boolean}
  */
-var canTransform = function(start, end) {
-    const first  = [];
-    const second = [];
+var canTransform = function (start, end) {
+  const first = [];
+  const second = [];
 
-    for (let i = 0; i < start.length; i++){
-        if (start[i] !== 'X') {
-            first.push([i, start[i]]);
-        }
+  for (let i = 0; i < start.length; i++) {
+    if (start[i] !== "X") {
+      first.push([i, start[i]]);
+    }
+  }
+
+  for (let j = 0; j < end.length; j++) {
+    if (end[j] !== "X") {
+      second.push([j, end[j]]);
+    }
+  }
+
+  if (first.length !== second.length) {
+    return false;
+  }
+
+  for (let i = 0; i < first.length; i++) {
+    if (first[i][1] !== second[i][1]) {
+      return false;
     }
 
-    for (let j = 0; j < end.length; j++){
-        if(end[j] !== 'X') {
-            second.push([j, end[j]]);
-        }
+    if (first[i][1] == "L" && first[i][0] < second[i][0]) {
+      return false;
     }
 
-    if (first.length !== second.length ) {
-        return false;
+    if (first[i][1] == "R" && first[i][0] > second[i][0]) {
+      return false;
     }
+  }
 
-    for (let i = 0; i < first.length; i++) {
-        if (first[i][1] !== second[i][1]) {
-            return false;
-        }
-
-        if (first[i][1] == 'L' && first[i][0] < second[i][0]) {
-            return false;
-        }
-
-        if (first[i][1] == 'R' && first[i][0] > second[i][0]) {
-            return false;
-        }
-    }
-
-    return true;
+  return true;
 };
