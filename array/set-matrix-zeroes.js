@@ -29,48 +29,47 @@ Could you devise a constant space solution?
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-var setZeroes = function(matrix) {
-    const cache = {};
+var setZeroes = function (matrix) {
+  const cache = {};
 
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix[0].length; j++) {
-            const key = `${i},${j}`;
-            const value = matrix[i][j];
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      const key = `${i},${j}`;
+      const value = matrix[i][j];
 
-            if (key in cache) {
-                continue;
-            }
+      if (key in cache) {
+        continue;
+      }
 
-            if (value === 0) {
-                fillWithZeroes(matrix, i, j, cache);
-            }
-        }
+      if (value === 0) {
+        fillWithZeroes(matrix, i, j, cache);
+      }
     }
+  }
 };
 
 const fillWithZeroes = (matrix, i, j, cache) => {
-    for (let k = 0; k < matrix[0].length; k++) {
-        if (matrix[i][k] === 0) {
-            continue;
-        }
-
-        const key = `${i},${k}`;
-
-        cache[key] = true;
-
-
-        matrix[i][k] = 0;
+  for (let k = 0; k < matrix[0].length; k++) {
+    if (matrix[i][k] === 0) {
+      continue;
     }
 
-    for (let k = 0; k < matrix.length; k++) {
-        if (matrix[k][j] === 0) {
-            continue;
-        }
+    const key = `${i},${k}`;
 
-        const key = `${k},${j}`;
+    cache[key] = true;
 
-        cache[key] = true;
+    matrix[i][k] = 0;
+  }
 
-        matrix[k][j] = 0;
+  for (let k = 0; k < matrix.length; k++) {
+    if (matrix[k][j] === 0) {
+      continue;
     }
-}
+
+    const key = `${k},${j}`;
+
+    cache[key] = true;
+
+    matrix[k][j] = 0;
+  }
+};
