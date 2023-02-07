@@ -1,6 +1,6 @@
 <div align="center">
 
-![laptop emoji](https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/325/laptop_1f4bb.png)
+![laptop emoji](https://em-content.zobj.net/thumbs/240/apple/325/laptop_1f4bb.png)
 
 # [My Leetcode Profile](https://leetcode.com/aolenevme)
 
