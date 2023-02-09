@@ -33,36 +33,36 @@ p contains only lowercase English letters, '?' or '*'.
  * @param {string} p
  * @return {boolean}
  */
-var isMatch = function(s, p) {
-    let sLen = s.length;
-    let pLen = p.length;
-    let sIdx = 0;
-    let pIdx = 0;
-    let starIdx = -1;
-    let sTmpIdx = -1;
+var isMatch = function (s, p) {
+  let sLen = s.length;
+  let pLen = p.length;
+  let sIdx = 0;
+  let pIdx = 0;
+  let starIdx = -1;
+  let sTmpIdx = -1;
 
-    while (sIdx < sLen) {
-        if (pIdx < pLen && ['?', s[sIdx]].includes(p[pIdx])) {
-            sIdx++;
-            pIdx++;
-        } else if (pIdx < pLen && p[pIdx] === '*') {
-            starIdx = pIdx;
-            sTmpIdx = sIdx;
-            pIdx++;
-        } else if (starIdx === -1) {
-            return false;
-        } else {
-            pIdx = starIdx + 1;
-            sIdx = sTmpIdx + 1;
-            sTmpIdx = sIdx;
-        }
+  while (sIdx < sLen) {
+    if (pIdx < pLen && ["?", s[sIdx]].includes(p[pIdx])) {
+      sIdx++;
+      pIdx++;
+    } else if (pIdx < pLen && p[pIdx] === "*") {
+      starIdx = pIdx;
+      sTmpIdx = sIdx;
+      pIdx++;
+    } else if (starIdx === -1) {
+      return false;
+    } else {
+      pIdx = starIdx + 1;
+      sIdx = sTmpIdx + 1;
+      sTmpIdx = sIdx;
     }
+  }
 
-    for (let i = pIdx; i < pLen; i++) {
-        if (p.charAt(i) !== '*') {
-            return false;
-        }
+  for (let i = pIdx; i < pLen; i++) {
+    if (p.charAt(i) !== "*") {
+      return false;
     }
-        
-    return true;
+  }
+
+  return true;
 };
