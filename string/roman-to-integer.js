@@ -60,12 +60,12 @@ const romanToInt = (s) => {
 
   for (let i = 0; i < s.length; i++) {
     const currentChar = s[i];
-    const nextChar = s[i + 1];   
+    const nextChar = s[i + 1];
     const current = map[currentChar];
     const next = map[nextChar];
 
     if (current < next) {
-      total += (next - current);
+      total += next - current;
 
       i++;
     } else {
