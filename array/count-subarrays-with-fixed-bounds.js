@@ -32,28 +32,29 @@ Constraints:
  * @param {number} maxK
  * @return {number}
  */
-var countSubarrays = function(nums, minK, maxK) {
-    let counter = 0;
+var countSubarrays = function (nums, minK, maxK) {
+  let l = -1;
+  let rmin = -1;
+  let rmax = -1;
+  let result = 0;
 
-    for (let left = 0; left < nums.length; left++) {
-        for (let right = left + 1; right <= nums.length; right++) {
-            const sliced = nums.slice(left, right);
-            const min = Math.min(...sliced);
-            const max = Math.max(...sliced);
-
-            if (min === minK && max === maxK) {
-                counter++;
-            } else {
-                const currentRight = nums[right];
-
-                if (currentRight < minK || currentRight > maxK) {
-                    left = right;
-
-                    break;
-                }
-            }
-        }
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] < minK || nums[i] > maxK) {
+      l = i;
     }
 
-    return counter;
+    if (nums[i] === minK) {
+      rmin = i;
+    }
+
+    if (nums[i] === maxK) {
+      rmax = i;
+    }
+
+    let counter = Math.min(rmin, rmax) - l;
+
+    result += Math.max(0, counter);
+  }
+
+  return result;
 };
